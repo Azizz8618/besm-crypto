@@ -1,0 +1,54 @@
+ZONE 2500 - GOST 28147-89 Library for BESM-6 Disk 2348
+=======================================================
+
+This library provides cryptographic primitives for GOST 28147-89
+that can be called as external procedures from Pascal programs.
+
+FILES:
+------
+add32.pas     - Add32(x, y) → (x+y) mod 2^32
+xor32.pas     - Xor32(x, y) → x XOR y
+rot11.pas     - Rot11(x) → rotate left 11 bits
+sbox8x4.pas   - Sbox8x4(box, x) → apply 8 S-boxes
+feistel.pas   - FeistelRound(ctx, txt, round)
+encblk.pas    - EncryptBlock(ctx, txt)
+decblk.pas    - DecryptBlock(ctx, txt)
+initkey.pas   - InitGostCtx(ctx, key, sbox)
+testzone.pas  - TestZone2500() - test harness
+
+COMPILATION ORDER:
+------------------
+1. add32.pas      → zone 2501
+2. xor32.pas      → zone 2502
+3. rot11.pas      → zone 2503
+4. sbox8x4.pas    → zone 2504
+5. feistel.pas    → zone 2505 (depends on 2501-2504)
+6. encblk.pas     → zone 2506 (depends on 2505)
+7. decblk.pas     → zone 2507 (depends on 2505)
+8. initkey.pas    → zone 2508
+9. testzone.pas   → zone 2509 (depends on all)
+
+USAGE:
+------
+external Function Add32(x, y: Integer): Integer;
+external Function Xor32(x, y: Integer): Integer;
+external Function Rot11(x: Integer): Integer;
+
+TESTING:
+--------
+Compile and run testzone.pas to verify all modules.
+
+All tests should PASS before using in production.
+
+NOTES:
+------
+- All lines ≤ 72 characters (BESM-6 Pascal restriction)
+- All programs use (*=e+*) extended syntax directive
+- External references resolved at link time from zones 2501-2508
+- mod32 := 4294967296 must be set in main program
+
+REFERENCS:
+----------
+Based on golden/gost_08.05.2025.pas
+GOST 28147-89 (Magma cipher)
+GOST R 34.12-2015 (Kuznyechik)

@@ -1,0 +1,32 @@
+ШИФР 419999 ЗС5^
+ОЗУ 32^
+ТРА 100^
+АЦП 128^
+ЕЕВ1А3
+*NAME Add32
+*CALL YESMEMORY
+*FULL LIST
+*SYSTEM
+*LIBRA: 13
+*PASCAL
+
+program Add32Mod(output);(*=e+*)
+
+type
+  UInt32 = Integer;
+
+var
+  mod32: Integer;
+
+Function Add32(x, y: UInt32): UInt32;
+begin
+  Add32 := (x + y) mod mod32
+end;
+
+begin
+  mod32 := 4294967296
+end.
+
+*EXECUTE
+*END FILE
+ЕКОНЕЦ

@@ -1,0 +1,24 @@
+ШИФР 419999 ЗС5^
+ТЕЛЕ^
+ЗП 2500(2348)^
+ЕВ1
+*EXTRA
+2500.1000
+*NAME Add32
+*PASCAL
+program Add32Mod(output);(*=e+*)
+type
+  UInt32 = Integer;
+var
+  mod32: Integer;
+Function Add32(x, y: UInt32): UInt32;
+begin
+  Add32 := (x + y) mod mod32
+end;
+begin
+  mod32 := 4294967296
+end.
+*EXECUTE
+*END FILE
+``````
+ЕКОНЕЦ
