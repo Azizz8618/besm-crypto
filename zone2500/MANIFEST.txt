@@ -1,6 +1,13 @@
 ZONE 2500 - GOST 28147-89 Library for BESM-6 Disk 2348
 =======================================================
 
+NOTE (29.10.26): This manifest describes the ORIGINAL per-zone plan
+(one .pas module per zone). It was NOT implemented. The actual zone
+2500 holds a personal library with ONE compiled module GOSTLIB
+(7 zones, 2500-2506 octal). See zone2500/LIBRARY.md and
+docs/SPLIT-2026-10-29.md. The .pas files below are kept as
+historical sources only.
+
 This library provides cryptographic primitives for GOST 28147-89
 that can be called as external procedures from Pascal programs.
 

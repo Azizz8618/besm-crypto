@@ -1,0 +1,16 @@
+шифр 419999 зс5^
+лен 40(2348)^
+eeв1а3
+*name
+*call yesmemory
+*perso:402030
+*stand
+*call *pascal
+program t(output);
+begin
+    writeln(77)
+end.
+*execute
+*end file
+``````
+ЕКОНЕЦ
