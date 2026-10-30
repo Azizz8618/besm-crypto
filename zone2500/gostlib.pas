@@ -1,0 +1,247 @@
+(*=p-,t-,s5,s8*)program gostlib(output);
+(* GOSTLIB - library of GOST 28147-89 for external calls.
+   Bodies lifted from golden/gost_08.05.2025_new.pas (29.10.26).
+   Exported entries (catalog ADD names, <=8 chars):
+     ADD32 XOR32 ROT11 GOSTINIT ENCBLOCK DECBLOCK ENCCTR DECCTR
+     MSGENCIV MSGDECIV
+   The main entry (program name) is GOSTLIB. *)
+type
+  UInt32 = Integer;
+  Intptr = @UInt32;
+  Ciphertext = File of Integer;
+  Block2 = Array[1..2] of UInt32;
+  TypeGostCtx = record
+    roundkey: Array[1..32] of Integer;
+    sbox: Array[1..8] of Array[0..15] of Integer
+  end;
+
+(* addition modulo 2^32 *)
+(*=e+*)Function ADD32(x, y: UInt32): UInt32;
+var mod32: Integer;
+begin
+  mod32 := 4294967296;
+  ADD32 := (x + y) mod mod32
+end;
+
+(* bitwise xor of non-negative integers *)
+(*=e+*)Function XOR32(x, y: Integer): Integer;
+var val, cur, res: Integer;
+begin
+  res := 0;
+  val := 1;
+  while ((x <> 0) or (y <> 0)) do begin
+    cur := ((x mod 2) + (y mod 2)) mod 2;
+    res := cur * val + res;
+    x := x div 2;
+    y := y div 2;
+    val := val * 2
+  end;
+  XOR32 := res
+end;
+
+(* cyclic rotation by 11 positions modulo 2^32 *)
+(*=e+*)Function ROT11(x: UInt32): UInt32;
+var i: Integer; res: UInt32; firstbit, mod31, mod32: Integer;
+begin
+  mod31 := 2147483648;
+  mod32 := 4294967296;
+  res := x;
+  for i := 1 to 11 do begin
+    firstbit := res div mod31;
+    res := (res * 2) mod mod32;
+    res := XOR32(res, firstbit)
+  end;
+  ROT11 := res
+end;
+
+(* initialize GOST context: round keys + 8 S-boxes *)
+(*=e+*)Procedure GOSTINIT(
+  var ctx: TypeGostCtx;
+  key: Array[1..8] of Integer;
+  s8: Array[1..16] of Integer;
+  s7: Array[1..16] of Integer;
+  s6: Array[1..16] of Integer;
+  s5: Array[1..16] of Integer;
+  s4: Array[1..16] of Integer;
+  s3: Array[1..16] of Integer;
+  s2: Array[1..16] of Integer;
+  s1: Array[1..16] of Integer);
+var i: Integer;
+begin
+  ctx.sbox[1] := s1;
+  ctx.sbox[2] := s2;
+  ctx.sbox[3] := s3;
+  ctx.sbox[4] := s4;
+  ctx.sbox[5] := s5;
+  ctx.sbox[6] := s6;
+  ctx.sbox[7] := s7;
+  ctx.sbox[8] := s8;
+  for i := 1 to 8 do begin
+    ctx.roundkey[i] := key[i];
+    ctx.roundkey[i + 8] := key[i];
+    ctx.roundkey[i + 16] := key[i];
+    ctx.roundkey[33 - i] := key[i]
+  end
+end;
+
+(* nonlinear layer of GOST89 algorithm (internal) *)
+Function nonlinear(ctx: TypeGostCtx; x: UInt32): UInt32;
+var i: Integer; res, curr, val: UInt32;
+begin
+  res := 0;
+  val := 1;
+  for i := 1 to 8 do begin
+    curr := x mod 16;
+    curr := ctx.sbox[9-i][curr];
+    res := res + curr * val;
+    val := val * 16;
+    x := x div 16
+  end;
+  nonlinear := res
+end;
+
+(* xor + nonlinear + rotation composition (internal) *)
+Function LSX(ctx: TypeGostCtx; x, round: UInt32): UInt32;
+var res: UInt32;
+begin
+  res := ADD32(ctx.roundkey[round], x);
+  res := nonlinear(ctx, res);
+  res := ROT11(res);
+  LSX := res
+end;
+
+(* one round of Feistel network (internal) *)
+Procedure Feistel(ctx: TypeGostCtx; var txt: Block2; i: Integer);
+var left, right, tmp: UInt32;
+begin
+  left := txt[1];
+  right := txt[2];
+  tmp := LSX(ctx, txt[2], i);
+  txt[1] := right;
+  txt[2] := XOR32(left, tmp)
+end;
+
+(* full block encryption in place: 32 rounds + half swap *)
+(*=e+*)Procedure ENCBLOCK(ctx: TypeGostCtx; var txt: Block2);
+var i: Integer; tmp: UInt32;
+begin
+  for i := 1 to 32 do begin
+    Feistel(ctx, txt, i)
+  end;
+  tmp := txt[1];
+  txt[1] := txt[2];
+  txt[2] := tmp
+end;
+
+(* full block decryption in place: reversed rounds + half swap *)
+(*=e+*)Procedure DECBLOCK(ctx: TypeGostCtx; var txt: Block2);
+var i: Integer; tmp: Integer;
+begin
+  for i := 1 to 32 do begin
+    Feistel(ctx, txt, 32-i+1)
+  end;
+  tmp := txt[1];
+  txt[1] := txt[2];
+  txt[2] := tmp
+end;
+
+(* counter-mode gamma over memory (internal) *)
+Procedure EncryptIV(ctx: TypeGostCtx; txt: Intptr; res: Intptr;
+  len: Integer; startvalue: UInt32);
+var i, blocknum: Integer; tmp: UInt32; counter: Block2;
+begin
+  blocknum := len div 2;
+  counter[1] := startvalue;
+  counter[2] := 0;
+  for i := 1 to blocknum do begin
+    counter[2] := counter[2] + 1;
+    ENCBLOCK(ctx, counter);
+    tmp := XOR32(txt@, counter[1]);
+    res@ := tmp;
+    txt := succ(txt);
+    res := succ(res);
+    tmp := XOR32(txt@, counter[2]);
+    res@ := tmp;
+    if (i <> blocknum) then begin
+      txt := succ(txt);
+      res := succ(res)
+    end
+  end;
+  if (len mod 2 = 1) then begin
+    txt := succ(txt);
+    res := succ(res);
+    counter[2] := counter[2] + 1;
+    ENCBLOCK(ctx, counter);
+    tmp := XOR32(txt@, counter[1]);
+    res@ := tmp
+  end
+end;
+
+(* counter mode over memory: IV given by caller *)
+(*=e+*)Procedure ENCCTR(ctx: TypeGostCtx; txt: Intptr; res: Intptr;
+  len: Integer; iv: UInt32);
+begin
+  res@ := iv;
+  res := succ(res);
+  EncryptIV(ctx, txt, res, len, iv)
+end;
+
+(* counter mode over memory: IV = first word of ctxt *)
+(*=e+*)Procedure DECCTR(ctx: TypeGostCtx; ctxt: Intptr; res: Intptr;
+  len: Integer);
+var iv: Integer;
+begin
+  iv := ctxt@;
+  ctxt := succ(ctxt);
+  EncryptIV(ctx, ctxt, res, len, iv)
+end;
+
+(* text file -> ciphertext file, IV given; files as var params *)
+(*=e+*)Procedure MSGENCIV(ctx: TypeGostCtx; iv: UInt32; var f: Text;
+  var ctxt: Ciphertext);
+var x: Char; tmp: UInt32; counter, gamma: Block2;
+begin
+  counter[1] := iv;
+  counter[2] := 0;
+  while (Eof(f) <> true) do begin
+    counter[2] := counter[2] + 1;
+    gamma[1] := counter[1];
+    gamma[2] := counter[2];
+    ENCBLOCK(ctx, gamma);
+    Read(f, x);
+    tmp := XOR32(Ord(x), gamma[1]);
+    Write(ctxt, tmp);
+    if (Eof(f) <> true) then begin
+      Read(f, x);
+      tmp := XOR32(Ord(x), gamma[2]);
+      Write(ctxt, tmp)
+    end
+  end
+end;
+
+(* ciphertext file -> text file, IV given; files as var params *)
+(*=e+*)Procedure MSGDECIV(ctx: TypeGostCtx; iv: UInt32;
+  var ctxt: Ciphertext; var fres: Text);
+var x: UInt32; tmp: UInt32; counter, gamma: Block2;
+begin
+  counter[1] := iv;
+  counter[2] := 0;
+  while not (Eof(ctxt)) do begin
+    counter[2] := counter[2] + 1;
+    gamma[1] := counter[1];
+    gamma[2] := counter[2];
+    ENCBLOCK(ctx, gamma);
+    Read(ctxt, x);
+    tmp := XOR32(x, gamma[1]);
+    Write(fres, Chr(tmp));
+    if not (Eof(ctxt)) then begin
+      Read(ctxt, x);
+      tmp := XOR32(x, gamma[2]);
+      Write(fres, Chr(tmp))
+    end
+  end;
+  WriteLn(fres)
+end;
+
+begin
+end.
