@@ -135,6 +135,7 @@ begin
   end;
   writeln('END')
 end.
+*perso:402000,cont
 *execute
 *end file
 ``````

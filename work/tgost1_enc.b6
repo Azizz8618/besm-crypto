@@ -117,6 +117,7 @@ begin
   writeln('dec1 ', w[1]);
   writeln('dec2 ', w[2])
 end.
+*perso:402000,cont
 *execute
 *end file
 ``````

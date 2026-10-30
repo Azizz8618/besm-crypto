@@ -138,6 +138,7 @@ begin
   writeln('u6 ', u[6]);
   writeln('u7 ', u[7])
 end.
+*perso:402000,cont
 *execute
 *end file
 ``````
