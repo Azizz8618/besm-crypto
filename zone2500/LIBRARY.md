@@ -86,7 +86,14 @@ type
   Ciphertext = File of Integer;
 var
   key: W8;
-  s8, s7, s6, s5, s4, s3, s2, s1: S16;
+  s8: S16;
+  s7: S16;
+  s6: S16;
+  s5: S16;
+  s4: S16;
+  s3: S16;
+  s2: S16;
+  s1: S16;
   ctx: CtxT;
   w: Block2;
 procedure GOSTINIT(var c: CtxT; k: W8;
