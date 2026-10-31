@@ -2572,7 +2572,7 @@ if otvet=0 then
 	end
 	else if engmode=1 then
 		begin
-odisk:=infwrd;
+infwrd:=ddisk;
 infwrd:=infwrd;
     BESM(500157B); x := ;
     x := x * magic;
