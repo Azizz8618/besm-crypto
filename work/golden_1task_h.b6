@@ -7,7 +7,7 @@
 eeв1а3
 *name Pascal
 *call yesmemory
-*perso:402030
+*perso:402570
 *stand
 *call *pascal
 program Main(input,output,pastel,fres,result,keyf,ctxt);(*=s7,l0,Y+*)
@@ -3551,7 +3551,6 @@ end
     mod31 := 2147483648;
     mod32 := 4294967296
 end
-*perso:402000,cont
 *execute
 *end file
 ``````
