@@ -111,7 +111,7 @@ VERIFY THAT DRIVE IS PLUGGED BY PASSING A COMMAND
 BBEДИTE HOMEP HOCИTEЛЯ (1-4095) И ПOДTB. ПAPOЛЬ
 ПPИ HEOБXOДИMOCTИ
 -----------------
--2061
+-203
 
 
 -----------------
@@ -121,10 +121,9 @@ BBEДИTE PEЖИM (0 - ЗП,1 - ЧT)
 
 KOД OTB. =         0
 N HAПP        31
-N ПOДKЛ. HMЛ/MД       2061
+N ПOДKЛ. HMЛ/MД        203
 -----------------
-TИП HOCИTEЛЯ: EC-5061 (29 MБ)
-EMKOCTЬ - 7630 ЗOH
+TИП HOCИTEЛЯ: ЛEHTA TИПA БЭCM
 -----------------
 BBEДИTE HOMEP HAЧAЛЬHOЙ ЗOHЫ ЗAПИCИ/ЧTEHИЯ
 -----------------
@@ -138,9 +137,9 @@ BBEДИTE ДЛИHY MACCИBA B ЗOHAX (2000(8) CЛOB):
 ПAPAMETPЫ HOCИTEЛЯ: 
 *****************
 N ЛOГ. KAHAЛA            31
-N ДИCKA/ЛEHTЫ:         2061
+N ДИCKA/ЛEHTЫ:          203
 *****************
-TИП HOCИTEЛЯ: EC-5061 (29 MБ)
+TИП HOCИTEЛЯ: ЛEHTA TИПA БЭCM
 *****************
 HOMEP HAЧAЛЬHOЙ ЗOHЫ:   100
 *****************
@@ -232,7 +231,7 @@ VERIFY THAT DRIVE IS PLUGGED BY PASSING A COMMAND
 BBEДИTE HOMEP HOCИTEЛЯ (1-4095) И ПOДTB. ПAPOЛЬ
 ПPИ HEOБXOДИMOCTИ
 -----------------
--2061
+-203
 
 
 -----------------
@@ -242,10 +241,9 @@ BBEДИTE PEЖИM (0 - ЗП,1 - ЧT)
 
 HOCИTEЛЬ ПOДKЛЮЧEH
 N HAПP        32
-N ПOДKЛ. HMЛ/MД       2061
+N ПOДKЛ. HMЛ/MД        203
 -----------------
-TИП HOCИTEЛЯ: EC-5061 (29 MБ)
-EMKOCTЬ - 7630 ЗOH
+TИП HOCИTEЛЯ: ЛEHTA TИПA БЭCM
 -----------------
 BBEДИTE HOMEP HAЧAЛЬHOЙ ЗOHЫ ЗAПИCИ/ЧTEHИЯ
 -----------------
@@ -259,9 +257,9 @@ BBEДИTE ДЛИHY MACCИBA B ЗOHAX (2000(8) CЛOB):
 ПAPAMETPЫ HOCИTEЛЯ: 
 *****************
 N ЛOГ. KAHAЛA            32
-N ДИCKA/ЛEHTЫ:         2061
+N ДИCKA/ЛEHTЫ:          203
 *****************
-TИП HOCИTEЛЯ: EC-5061 (29 MБ)
+TИП HOCИTEЛЯ: ЛEHTA TИПA БЭCM
 *****************
 HOMEP HAЧAЛЬHOЙ ЗOHЫ:   100
 *****************
@@ -282,13 +280,13 @@ OTЛAДKA:
 -----------------
 ЗAШИФPOBAHHЫЙ TEKCT (ЧИCЛEHHOE ПPEДCTABЛEHИE)
 -----------------
-    531940
-1575165116
-3822236331
-4145609516
- 519828350
-2101761065
-2960451195
+   3772989
+1501421995
+2329043660
+2064777411
+1184894062
+1809121498
+2939948896
 
 PACШИФPOBAHHЫЙ TEKCT
 HELLO
