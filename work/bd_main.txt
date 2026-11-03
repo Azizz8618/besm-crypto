@@ -1,0 +1,187 @@
+(* ================= ГЛАВНЫЙ ДИАЛОГ ================= *)
+begin
+PASTEL[3]:=[48];
+  kl.l := 52053075B;
+  kl.r := 67040060B;
+  connected := false;
+  opened := false;
+  writeln;
+  writeln('---------------------------------------------');
+  writeln('БД ХЕШЕЙ ПАРОЛЕЙ - ТОМ АРФЫ, ЛЕНТА 203 (419999)');
+  writeln('---------------------------------------------');
+  grabvolume(1003B);
+  writeln('МОНОПОЛЬНЫЙ ЗАХВАТ ТОМА 203 (Э50 0157): КОД=', code);
+  if code <> 0 then
+    begin
+      writeln('ОШИБКА!!! ТОМ 203 НЕ ЗАХВАЧЕН!!!');
+      goto 9
+    end;
+1:
+  writeln('1 - создать область и базу данных');
+  writeln('2 - добавить/заменить пользователя');
+  writeln('3 - показать хеш пользователя');
+  writeln('4 - удалить пользователя');
+  writeln('5 - сведения об области');
+  writeln('0 - конец работы');
+  buf.buflen := 80;
+  buf.inplen := 0;
+  Pasred(buf);
+  If buf.a[1]='1' then
+    begin
+      (* создание области и базы данных *)
+      areainfo;
+      if code = 0 then
+        begin
+          writeln('ОБЛАСТЬ УЖЕ СОЗДАНА');
+          writeln('ХОЗЯИН=', answ.l, ' ЗОН=', (answ.r mod 65536))
+        end
+      else
+        begin
+          mkarea(3);
+          writeln('СОЗДАНИЕ ОБЛАСТИ ПАРОЛИ: КОД=', code);
+          if code <> 0 then goto 9;
+          writeln('ШИФР ДОСТУПА К ОБЛАСТИ (1-4095):');
+          buf.buflen := 80;
+          buf.inplen := 0;
+          Pasred(buf);
+          cifv := 0;
+          for ii := 1 to buf.inplen do
+            begin
+              if (buf.a[ii] >= '0') and (buf.a[ii] <= '9') then
+                cifv := cifv*10 + (ord(buf.a[ii]) - ord('0'))
+            end;
+          if (cifv < 1) or (cifv > 4095) then
+            begin
+              writeln('ШИФР ДОЛЖЕН БЫТЬ В ДИАПАЗОНЕ 1-4095!!!');
+              goto 1
+            end;
+          setpass(0, cifv);
+          writeln('ПАРОЛЬ ОБЛАСТИ ', cifv, ' УСТАНОВЛЕН: КОД=', code);
+          orderarea;
+          if not (connected) then goto 9;
+          pasbdi;
+          pasacd(desc1);
+          besm(770000B);
+          writeln('КАТАЛОГ МАРСа СОЗДАН');
+          passetar(desc1);
+          newd('HASHPW', desc2);
+          besm(770000B);
+          writeln('ФАЙЛ ДАННЫХ HASHPW СОЗДАН');
+          openfile;
+          writeln('БАЗА ДАННЫХ ГОТОВА К РАБОТЕ')
+        end;
+      goto 1
+    end
+  else
+  If buf.a[1]='2' then
+    begin
+      (* добавить/заменить запись: шифр -> хеш *)
+      if not (opened) then
+        begin
+          connectarea;
+          if connected then openfile
+        end;
+      if not (opened) then goto 9;
+      writeln('ШИФР ПОЛЬЗОВАТЕЛЯ (6 ЦИФР):');
+      buf.buflen := 80;
+      buf.inplen := 0;
+      Pasred(buf);
+      cifr := '      ';
+      for ii := 1 to 6 do cifr[ii] := buf.a[ii];
+      Passgen(pwd, pwdlen);
+      HashMessage(ref(pwd[1]), pwdlen, key);
+      writeln('ХЕШ ПАРОЛЯ (8 СЛОВ):');
+      prhash(key);
+      for ii := 1 to 8 do pad16[ii] := key[ii];
+      modd(cifr, pad16:8);
+      cifr2 := cifr;
+      cifr2[1] := 'X';
+      for ii := 1 to 8 do pad16[ii] := 0;
+      pad16[1] := key[8];
+      modd(cifr2, pad16:8);
+      besm(770000B);
+      writeln('ЗАПИСЬ ', cifr, ' ЗАНЕСЕНА В БАЗУ ДАННЫХ');
+      goto 1
+    end
+  else
+  If buf.a[1]='3' then
+    begin
+      (* показать хеш пользователя *)
+      if not (opened) then
+        begin
+          connectarea;
+          if connected then openfile
+        end;
+      if not (opened) then goto 9;
+      writeln('ШИФР ПОЛЬЗОВАТЕЛЯ (6 ЦИФР):');
+      buf.buflen := 80;
+      buf.inplen := 0;
+      Pasred(buf);
+      cifr := '      ';
+      for ii := 1 to 6 do cifr[ii] := buf.a[ii];
+      getd(cifr, pad16:8);
+      for ii := 1 to 8 do key2[ii] := pad16[ii];
+      cifr2 := cifr;
+      cifr2[1] := 'X';
+      getd(cifr2, pad16:8);
+      key2[8] := pad16[1];
+      writeln('ХЕШ ПАРОЛЯ ПОЛЬЗОВАТЕЛЯ ', cifr, ':');
+      prhash(key2);
+      goto 1
+    end
+  else
+  If buf.a[1]='4' then
+    begin
+      (* удалить пользователя *)
+      if not (opened) then
+        begin
+          connectarea;
+          if connected then openfile
+        end;
+      if not (opened) then goto 9;
+      writeln('ШИФР ПОЛЬЗОВАТЕЛЯ (6 ЦИФР):');
+      buf.buflen := 80;
+      buf.inplen := 0;
+      Pasred(buf);
+      cifr := '      ';
+      for ii := 1 to 6 do cifr[ii] := buf.a[ii];
+      deld(cifr);
+      cifr2 := cifr;
+      cifr2[1] := 'X';
+      deld(cifr2);
+      besm(770000B);
+      writeln('ЗАПИСЬ ', cifr, ' УДАЛЕНА');
+      goto 1
+    end
+  else
+  If buf.a[1]='5' then
+    begin
+      (* сведения об области *)
+      areainfo;
+      if code = 0 then
+        begin
+          writeln('ОБЛАСТЬ ПАРОЛИ:');
+          writeln('ХОЗЯИН=', answ.l, ' ЗОН=', (answ.r mod 65536));
+          writeln('ПАРОЛЬ=', (answ.r div 4194304) mod 4);
+          writeln('(1-ЧТЕНИЕ, 2-ЗАПИСЬ, 3-ЧТ+ЗП)')
+        end
+      else
+        begin
+          writeln('СВЕДЕНИЙ НЕТ, КОД=', code)
+        end;
+      goto 1
+    end
+  else
+  If buf.a[1]='0' then
+    begin
+      writeln('*** КОНЕЦ РАБОТЫ ***')
+    end
+  else
+    begin
+      writeln('Некорректный символ!!! Введите <0>-<5>');
+      goto 1
+    end;
+9:
+  releasevolume(1003B);
+  writeln('ТОМ 203 ОСВОБОЖДЕН (Э50 0116)')
+end

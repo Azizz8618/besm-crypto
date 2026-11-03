@@ -1,0 +1,11 @@
+    (* переменные Э63 и МАРСа *)
+    kl, prmw, answ, tmpw: w2;
+    isw: array [1..8] of w2;
+    pa: @w2;
+    bdvect: array [0..167] of mw;
+    unitn, code, ii, cifv: integer;
+    desc1, desc2: integer;
+    key2: array [1..8] of UInt32;
+    cifr: alfa;
+    curk: mw;
+    connected, opened: boolean;

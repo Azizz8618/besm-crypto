@@ -1,0 +1,6 @@
+  (* типы для Э63 и МАРСа *)
+  w2 = packed record l, r: 0..16777215 end;
+  mw = record case integer of
+    1: (i: integer);
+    2: (a: alfa)
+  end;

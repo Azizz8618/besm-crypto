@@ -1,0 +1,91 @@
+шифр 419999 зс5^
+лен 40(2348)^
+ОЗУ 32^
+АЦПУ 140^
+ТРА 37^
+ТЕЛЕ^
+eeв1а3
+*name Pascal
+*call yesmemory
+*perso:402570
+*stand
+*call *pascal
+program SinTest(output);(*=s7,l0,Y+*)
+%
+%
+Label 9;
+%
+%
+type
+  Arg = record
+    buflen, inplen: Integer;
+    dummy1, dummy2: Integer;
+    a: packed array[1..80] of char
+    end;
+var
+  opened, connected: boolean;
+  code: integer;
+  buf: Arg;
+%
+%
+procedure connectarea;
+begin
+  connected := true
+end;
+procedure openfile;
+begin
+  opened := true
+end;
+begin
+  code := 0;
+  opened := false;
+  connected := false;
+  buf.a[1] := '1';
+  (* VD0: контроль - F на верхнем уровне *)
+  if not opened then begin connectarea; if connected then openfile end;
+  if not opened then goto 9;
+  (* VD1: без внутреннего if *)
+  If buf.a[1]='1' then begin
+    if not opened then begin connectarea end;
+    writeln('VD1')
+  end;
+  (* VD2: два вызова без внутреннего if *)
+  If buf.a[1]='1' then begin
+    if not opened then begin connectarea; openfile end;
+    writeln('VD2')
+  end;
+  (* VD3: только внутренний if *)
+  If buf.a[1]='1' then begin
+    if not opened then begin if connected then openfile end;
+    writeln('VD3')
+  end;
+  (* VD6: точная F, но not в скобках *)
+  If buf.a[1]='1' then begin
+    if not (opened) then begin connectarea; if connected then openfile end;
+    writeln('VD6')
+  end;
+  (* VD8: точная F, но ; перед end *)
+  If buf.a[1]='1' then begin
+    if not opened then begin connectarea; if connected then openfile; end;
+    writeln('VD8')
+  end;
+  (* VD5: многострочный golden-стиль *)
+  If buf.a[1]='1' then begin
+    if not opened then
+      begin
+        connectarea;
+        if connected then openfile
+      end;
+    writeln('VD5')
+  end;
+  writeln('FIN');
+9:
+  writeln('END')
+end
+.data
+    code := 5
+end
+*execute
+*end file
+``````
+ЕКОНЕЦ

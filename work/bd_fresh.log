@@ -1,0 +1,83 @@
+﻿                                                      03.11.26 М1
+
+  М О Н И Т О Р-8 0  (3.7)   25.09.84*       (  МС " Д У Б Н А " ИАЭ  )             ШИФР    419999000000
+
+
+
+
+
+
+
+                    ЖЖЖЖ   ЖЖЖ   ЖЖЖ   ЖЖЖЖ  ЖЖЖ  Ж
+                    Ж   Ж Ж   Ж Ж     Ж     Ж   Ж Ж
+                    Ж   Ж Ж   Ж  ЖЖЖ  Ж     Ж   Ж Ж
+                    Ж   Ж Ж   Ж     Ж Ж     Ж   Ж Ж
+                    ЖЖЖЖ  Ж   Ж     Ж Ж     Ж   Ж Ж
+                    Ж     ЖЖЖЖЖ Ж   Ж Ж     ЖЖЖЖЖ Ж
+                    Ж     Ж   Ж  ЖЖЖ   ЖЖЖЖ Ж   Ж ЖЖЖЖЖ
+
+
+
+
+
+
+
+
+*NАМЕ РАSСАL
+*NАМЕ РАSСАL
+           *САLL УЕSМЕМОRУ
+           *САLL УЕSМЕМОRУ
+           *РЕRSО:402570
+           *РЕRSО:402570
+ LIВRАRУ ОТ  03.11.26 М1
+           *SТАND
+           *SТАND
+           *САLL *РАSСАL
+           *САLL *РАSСАL
+WНАТ= 
+ PASCAL COMPILER 15.1 (28.10.26)
+ ******100  TPEБYETCЯ  ПPABAЯ CKOБKA 
+ 11700 3341  4     END ELSE BEGIN
+        *****        0
+ ******103  TPEБYETCЯ  TOЧKA C ЗAПЯTOЙ 
+ STATEMENT  BEGIN IN 3367 LINE
+ 11733 3370  3     IF NOT OPENED THEN GOTO 9;
+        *****       0
+ ******103  TPEБYETCЯ  TOЧKA C ЗAПЯTOЙ 
+ STATEMENT  BEGIN IN 3386 LINE
+ 11750 3389  3     IF NOT OPENED THEN GOTO 9;
+WНАТ= 
+        *****       0
+ ******103  TPEБYETCЯ  TOЧKA C ЗAПЯTOЙ 
+ STATEMENT  BEGIN IN 3401 LINE
+ 11762 3404  3     IF NOT OPENED THEN GOTO 9;
+        *****       0
+ ******103  TPEБYETCЯ  TOЧKA C ЗAПЯTOЙ 
+ STATEMENT  BEGIN IN 3428 LINE
+ 12013 3431  3     IF NOT OPENED THEN GOTO 9;
+        *****       0
+ ******22 HEПPABИЛЬHЫЙ TИП ПEPEMEHHOЙ ПEPEД   .   
+ ******0 TPEБYETCЯ ЛOГИЧECKOE BЫPAЖEHИE 
+WНАТ= 
+ ******107  TPEБYETCЯ  ПPИCBAИBAHИЯ 
+ ******103  TPEБYETCЯ  TOЧKA C ЗAПЯTOЙ 
+ STATEMENT  BEGIN IN 3428 LINE
+ 12016 3436  4     WHILE CURK.I <> 0 DO BEGIN
+        *****                01  2          3
+ ******22 HEПPABИЛЬHЫЙ TИП ПEPEMEHHOЙ ПEPEД   .   
+ 12017 3437  4       CIFR := CURK.A;
+        *****                    0
+ ******33 HEДOПYCT TИПЫ ПPИ ПPИCBAИBAHИИ 
+ 12025 3445  3     END;
+        *****        0
+WНАТ= 
+ 8: 7: 6: 5: 4: 3: 2:     MAIN ******90  TPEБYETCЯ  OПPEД METKИ B БЛOKE 
+ 12047 3458  0 .DATA
+        *****  0
+ IN 3481 LINES 12 ERRORS
+           *ЕХЕСUТЕ
+           *ЕХЕСUТЕ
+ БЫЛИ ОШИБКИ ПРИ ТРАНСЛЯЦИИ ИЛИ В НАБИВКЕ
+ БЫЛИ ОШИБКИ ПРИ ТРАНСЛЯЦИИ ИЛИ В НАБИВКЕ
+ КОНЕЦ ЗАДАЧИ
+ 00411: 00 074 0000	*74

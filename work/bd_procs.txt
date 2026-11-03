@@ -1,0 +1,151 @@
+(* ================================================================ *)
+(* ДИАЛОГОВАЯ ПРОГРАММА: БД ХЕШЕЙ ПАРОЛЕЙ НА СПЕЦНОСИТЕЛЕ           *)
+(* Том АРФЫ на ленте 203, хозяин области - системный пользователь   *)
+(* 419999. Область "ПАРОЛИ" (3 зоны): зона 0 - каталог МАРСа,       *)
+(* зоны 1-2 - файл данных HASHPW (МАРС-6, библиотека 02570).        *)
+(* Хеш пароля - ГОСТ 34.11-94 (HashMessage), 8 слов.                *)
+(* Экстракод Э63 'КЛЮЧАР': создание области, пароль, дозаказ        *)
+(* области на лог.номер (виртуальное устройство), сведения.         *)
+(* ================================================================ *)
+procedure pasbdi; external;
+procedure pasbd; external;
+procedure pasacd(var i: integer); fortran;
+procedure passetar(i: integer); external;
+(* --- Э63 'КЛЮЧАР': базовый вызов без параметра на РМР --- *)
+procedure e63;
+begin
+  pa := ref(isw[1]);
+  besm(400006B);
+  tmpw := kl;
+  besm(30630000B);
+  answ := ;
+  besm(420016B);
+  tmpw := ;
+  code := tmpw.r
+end;
+(* --- Э63 'КЛЮЧАР': вызов с параметром на РМР --- *)
+procedure e63p;
+begin
+  pa := ref(prmw);
+  besm(400005B);
+  tmpw := prmw;
+  besm(24120000B);
+  pa := ref(isw[1]);
+  besm(400006B);
+  tmpw := kl;
+  besm(30630000B);
+  answ := ;
+  besm(420016B);
+  tmpw := ;
+  code := tmpw.r
+end;
+(* --- имя области по-новому (УПП): 'ПАРОЛИ/419999', 0-терминатор --- *)
+procedure setname;
+begin
+  (* П=47 А=32 Р=48 О=46 Л=43 И=40 /=12 4=4 1=1 9=9 (ГОСТ-10859) *)
+  isw[2].l := 47*65536 + 32*256 + 48;
+  isw[2].r := 46*65536 + 43*256 + 40;
+  isw[3].l := 12*65536 + 4*256 + 1;
+  isw[3].r := 9*65536 + 9*256 + 9;
+  isw[4].l := 9*65536;
+  isw[4].r := 0
+end;
+(* --- Э63 01: создать область ПАРОЛИ/419999 (ln зон) --- *)
+procedure mkarea(ln: integer);
+begin
+  setname;
+  isw[1].l := 1000000B;      (* тип 01 - создание области *)
+  isw[1].r := 8;             (* имя по-новому (10В) *)
+  prmw.l := 0;               (* вид 0, права 0 *)
+  prmw.r := ln;              (* длина в зонах *)
+  e63p
+end;
+(* --- Э63 03: установить пароль записи области --- *)
+procedure setpass(old, nw: integer);
+begin
+  setname;
+  isw[1].l := 3000000B + old;      (* тип 03 + старый пароль (36-25) *)
+  isw[1].r := nw*4096 + 8;         (* новый пароль (24-13) + имя *)
+  e63
+end;
+(* --- Э63 05: подтвердить пароль области --- *)
+procedure verpass(pw: integer);
+begin
+  setname;
+  isw[1].l := 5000000B + pw;       (* тип 05 + пароль (36-25) *)
+  isw[1].r := 8;
+  e63
+end;
+(* --- Э63 07: сведения об области (хозяин/зоны на СМ) --- *)
+procedure areainfo;
+begin
+  setname;
+  isw[1].l := 7000000B;            (* тип 07 *)
+  isw[1].r := 8;
+  e63
+end;
+(* --- Э63 12: дозаказ области на свободный лог.номер --- *)
+procedure order;
+begin
+  setname;
+  isw[1].l := 12000000B;           (* тип 12 - дозаказ *)
+  isw[1].r := 8;                   (* имя по-новому, запись+чтение *)
+  prmw.l := 77600000B;             (* шкала ЛУ: 030-038 *)
+  prmw.r := 0;
+  e63p;
+  unitn := answ.r                  (* лог.номер - с СМ *)
+end;
+(* --- дозаказ области + дескрипторы (без инициализации МАРСа) --- *)
+procedure orderarea;
+begin
+  order;
+  writeln('ДОЗАКАЗ ОБЛАСТИ: КОД=', code, ' ЛУ=', unitn);
+  if code = 0 then begin
+    connected := true;
+    desc1 := 262144 + unitn*4096;         (* каталог: 1 зона с зоны 0 *)
+    desc2 := 2*262144 + unitn*4096 + 1    (* данные: 2 зоны с зоны 1 *)
+  end
+end;
+(* --- подключение существующей БД (каталог уже создан) --- *)
+procedure connectarea;
+begin
+  orderarea;
+  if connected then begin
+    pasbdi;
+    passetar(desc1)
+  end
+end;
+(* --- открыть файл данных (после connectarea) --- *)
+procedure openfile;
+begin
+  opend('HASHPW');
+  opened := true;
+  writeln('БАЗА ДАННЫХ ОТКРЫТА')
+end;
+(* --- печать хеша (8 слов) --- *)
+procedure prhash(var h: Array [1..8] of UInt32);
+begin
+  for ii := 1 to 8 do begin
+    write(h[ii]:11);
+    if ii = 4 then writeln
+  end;
+  writeln
+end;
+(* --- Э50 0157: монопольный захват спецносителя (том в ДДК) --- *)
+procedure grabvolume(vbcd: integer);
+begin
+  prmw.l := 0;
+  prmw.r := vbcd;
+  tmpw := prmw;
+  besm(500157B);
+  tmpw := ;
+  code := tmpw.r
+end;
+(* --- Э50 0116: освобождение спецносителя --- *)
+procedure releasevolume(vbcd: integer);
+begin
+  prmw.l := 0;
+  prmw.r := vbcd;
+  tmpw := prmw;
+  besm(500116B)
+end;

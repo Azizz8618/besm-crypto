@@ -1,0 +1,267 @@
+﻿                                                      03.11.26 М1
+
+  М О Н И Т О Р-8 0  (3.7)   25.09.84*       (  МС " Д У Б Н А " ИАЭ  )             ШИФР    419999000000
+
+
+
+
+
+
+
+                    ЖЖЖЖ   ЖЖЖ   ЖЖЖ   ЖЖЖЖ  ЖЖЖ  Ж
+                    Ж   Ж Ж   Ж Ж     Ж     Ж   Ж Ж
+                    Ж   Ж Ж   Ж  ЖЖЖ  Ж     Ж   Ж Ж
+                    Ж   Ж Ж   Ж     Ж Ж     Ж   Ж Ж
+                    ЖЖЖЖ  Ж   Ж     Ж Ж     Ж   Ж Ж
+                    Ж     ЖЖЖЖЖ Ж   Ж Ж     ЖЖЖЖЖ Ж
+                    Ж     Ж   Ж  ЖЖЖ   ЖЖЖЖ Ж   Ж ЖЖЖЖЖ
+
+
+
+
+
+
+
+
+*NАМЕ РАSСАL
+*NАМЕ РАSСАL
+           *САLL УЕSМЕМОRУ
+           *САLL УЕSМЕМОRУ
+           *РЕRSО:412570
+           *РЕRSО:412570
+ LIВRАRУ ОТ  03.11.26 М1
+           *АSSЕМ
+           *АSSЕМ
+                                                      03.11.26 М1
+ АВТОКОД  МАDLЕN
+   (1.10.72)
+                    SТАRТ   :  , NАМЕ,
+                    *ВDVЕСТ*:  , LС  ,168
+                    *ЕRSТОР*:  , LС  ,1
+                    *ВDV*   :  , LС  ,1
+                    *ВDЕRRN*:  , LС  ,1
+                    *ВDС*   :  , LС  ,7
+                    Р/ВDSУS :  , РС  ,1024
+                    Р/ВDТАВ :  , РС  ,1024
+                    Р/ВDВUF :  , РС  ,1024
+                    МАIN    :  , SUВР,
+ 0000                          , UJ  ,МАIN
+  -
+ 0001                          , ВSS ,377В    . ТО МАКЕ ВDVЕСТ
+                                                SТАRТ FRОМ 0140
+                                                0
+                               , ЕND ,
+ ЧИСЛО ПЕРФ. 0013      ЧИСЛО ОШИБ. ОПЕРАТОРОВ  0000
+           *SТАND
+           *SТАND
+           *САLL *РАSСАL
+           *САLL *РАSСАL
+WНАТ= 
+ PASCAL COMPILER 15.1 (28.10.26)
+  3553 LINES STRUCTURE 1 493 0 0 12 5482 0 2527 258 19 
+           *     NО LОАD LISТ
+           *     NО LОАD LISТ
+           *МАIN SТАRТ
+           *МАIN SТАRТ
+           *     NО LОАD LISТ
+           *     NО LОАD LISТ
+           *МАIN SТАRТ
+           *МАIN SТАRТ
+           *     NО LОАD LISТ
+           *     NО LОАD LISТ
+           *МАIN SТАRТ
+           *МАIN SТАRТ
+           *     NО LОАD LISТ
+           *     NО LОАD LISТ
+           *МАIN SТАRТ
+           *МАIN SТАRТ
+           *     NО LОАD LISТ
+           *     NО LОАD LISТ
+           *МАIN SТАRТ
+           *МАIN SТАRТ
+           *     NО LОАD LISТ
+           *     NО LОАD LISТ
+           *МАIN SТАRТ
+           *МАIN SТАRТ
+           *     NО LОАD LISТ
+           *     NО LОАD LISТ
+           *МАIN SТАRТ
+           *МАIN SТАRТ
+           *     NО LОАD LISТ
+           *     NО LОАD LISТ
+           *МАIN SТАRТ
+           *МАIN SТАRТ
+           *     NО LОАD LISТ
+           *     NО LОАD LISТ
+           *МАIN SТАRТ
+           *МАIN SТАRТ
+           *     NО LОАD LISТ
+           *     NО LОАD LISТ
+           *МАIN SТАRТ
+           *МАIN SТАRТ
+           *     NО LОАD LISТ
+           *     NО LОАD LISТ
+           *МАIN SТАRТ
+           *МАIN SТАRТ
+           *     NО LОАD LISТ
+           *     NО LОАD LISТ
+           *МАIN SТАRТ
+           *МАIN SТАRТ
+           *     NО LОАD LISТ
+           *     NО LОАD LISТ
+           *МАIN SТАRТ
+           *МАIN SТАRТ
+           *ЕХЕСUТЕ
+           *ЕХЕСUТЕ
+
+        SТАRТ      01000        Р/31       33322        Р/WR       34511
+        *ВDVЕСТ* С 01400        Р/RС       33324        РАSТЕNS  Е 34677
+        *ЕRSТОР* С 01650        Р/08       33350        РАSЕХFТ* С 34723
+        *ВDV*    С 01651        Р/LDАR     33377        *РАSDDS* С 34742
+        *ВDЕRRN* С 01652        РАSВDI     33407        RGЕХРОRТ С 34743
+        *ВDС*    С 01653        РАSВD    Е 33471        *РАSТЕL* С 34744
+        Р/ВDSУS  С 02000        РАIВ     Е 33476        РАSЕVN     34775
+        Р/ВDТАВ  С 04000        РАSSЕТАR   33532        РАSNВ8     35016
+        Р/ВDВUF  С 06000        РАSАСD     33540        РRINТ8     35026
+        МАIN       10000        Р/SТАR     33556        РRINТ80  Е 35026
+        РRОGRАМ  Е 10000        Р/1        33570        РULТ       35064
+        Р/1D     С 27511        РАSРМD     33574        РАSISОХТ   35072
+        *ОUТРUТ* С 31650        Р/РМDSЕТ Е 33627        МОNRЕАD*   35124
+        *INРUТ*  С 31706        РАSЕNDS* С 33735        RЕАD*ЕRR Е 35201
+        Р/SУS      31744        РАSЕОLSУ С 33736        LUN*МОN    35217
+        Р/МОD    Е 31760        РАSЕОFСD С 33737        Р/SТАСК  С 35225
+        Р/DIV    Е 31764        Р/ВЕХF     33740        РАSНID     35226
+        Р/IТ     Е 31776        РАSРМDАD С 33745        РАSDIН   Е 35231
+        Р/СО     Е 32000        SТОР*      33746        Р/РАGЕS    35235
+        Р/RЕ1    Е 32006        SРАСЕ*   С 33767        РАSРАGN* С 35236
+        Р/RЕ2    Е 32150        РАSОUТ     33770        РАSDRN*  С 35237
+        РАSСТRР  Е 32203        Р/РRINТ  Е 33771        РАSDRUМ* С 35240
+        Р/GF     Е 32256        РАSТN    Е 34027        РАSРЕRID С 35241
+        Р/RАСРАК Е 32315        РАSWНТ   Е 34043        РАSРLUS* С 35242
+        РАSINВUF Е 32365        Р/НТ       34104        Р/ТR       35243
+        РАSGIVЕР Е 32422        РАSZЕRО* С 34116        Р/А7       35246
+        Р/РF     Е 32503        Р/WХ       34117        МОN*IТОR   35254
+        Р/WОLN   Е 32534        Р/WХD    Е 34126        РLВЕG    Е 35263
+        Р/WL     Е 32535        РАSЕОF     34144        РLСLО    Е 35271
+        Р/RF     Е 32607        IОХХРКRТ   34163        АSАVЕ*   Е 35277
+        Р/ТF     Е 32672        RЕАD*    Е 34165        SАVЕ*НID Е 35304
+        Р/2        32725        РАSСЕLUР С 34217        FОR*АLL  Е 35321
+        Р/SС       32731        Р/ЕR       34220        ОН*      Е 35323
+        Р/DА       32741        РАSМINS* С 34227        ОН*1     Е 35330
+        Р/МI       32754        Р/SР       34230        ISО/GОSТ   35337
+        Р/ЕF       32757        Р/НIDЕ     34236        СLЕАRLЕХ   35406
+        Р/Е      Е 32762        Р/ЕDIН   Е 34241        DRUМТАР*   35420
+        Р/МD       32765        Р/NN       34244        СОSУТISО   35446
+        Р/LNGРАR   32774        РАSВIND    34312        СОZУТISО Е 35446
+        Р/DI       33002        РАSАDD   Е 34337        IОХХТТWТ   35522
+        Р/СW       33006        РАSINР   Е 34343        ТТРRINТD Е 35526
+        Р/WI       33010        Р/LDАRIN   34354        ТТРRINТ  Е 35526
+        Р/ЕО       33071        Р/IN       34364        ТТРRIКS  Е 35540
+        Р/7А       33072        Р/LV       34374        /IР*     Е 35606
+        Р/7АD    Е 33074        РАSВDЕ     34377        Р/FIRР   С 36000
+        Р/6А       33107        Р/ТRРАGЕ   34400        СНКWОRD* С 40000
+        Р/3        33111        Р/ВХ       34432        ТSТАТЕ*  С 40001
+        NОРRОGRА   33115        Р/ЕN     Е 34444          СВОБОД   40002
+        РАSRЕD   Е 33116        Р/WО       34460
+
+WНАТ= 
+
+---------------------------------------------
+БД XEШEЙ ПAPOЛEЙ - TOM APФЫ, ЛEHTA 203 (419999)
+---------------------------------------------
+MOHOПOЛЬHЫЙ ЗAXBAT TOMA 203 (Э50 0157): KOД=         0
+1 - COЗДATЬ OБЛACTЬ И БAЗY ДAHHЫX
+2 - ДOБABИTЬ/ЗAMEHИTЬ ПOЛЬЗOBATEЛЯ
+3 - ПOKAЗATЬ XEШ ПOЛЬЗOBATEЛЯ
+4 - YДAЛИTЬ ПOЛЬЗOBATEЛЯ
+5 - CBEДEHИЯ OБ OБЛACTИ
+0 - KOHEЦ PAБOTЫ
+-1
+WНАТ= 
+COЗДAHИE OБЛACTИ ПAPOЛИ: KOД=         0
+ШИФP ДOCTYПA K OБЛACTИ (1-4095):
+-3999
+ПAPOЛЬ OБЛACTИ       3999 YCTAHOBЛEH: KOД=         0
+ДOЗAKAЗ OБЛACTИ: KOД=         0 ЛY=        26
+KATAЛOГ MAPCA COЗДAH
+ 22117B ADR,    03 DATA BASE ERROR, 000010 MICRO RUN, NAME= HASHPWФAЙЛ ДAHHЫX HASHPW COЗДAH
+БAЗA ДAHHЫX OTKPЫTA
+БAЗA ДAHHЫX ГOTOBA K PAБOTE
+1 - COЗДATЬ OБЛACTЬ И БAЗY ДAHHЫX
+2 - ДOБABИTЬ/ЗAMEHИTЬ ПOЛЬЗOBATEЛЯ
+WНАТ= 
+3 - ПOKAЗATЬ XEШ ПOЛЬЗOBATEЛЯ
+4 - YДAЛИTЬ ПOЛЬЗOBATEЛЯ
+5 - CBEДEHИЯ OБ OБЛACTИ
+0 - KOHEЦ PAБOTЫ
+-2
+ШИФP ПOЛЬЗOBATEЛЯ (6 ЦИФP):
+-419900
+
+BBEДИTE ПAPOЛЬ:   
+ENTER A PASSWORD:   
+
+-parol-privat-1
+
+BBEДИTE ПAPOЛЬ CHOBA:   
+WНАТ= 
+ENTER THE PASSWORD AGAIN:   
+
+-parol-privat-1
+ПAPOЛИ COBПAДAЮT!
+PASSWORDS ARE MATCHED
+XEШ ПAPOЛЯ (8 CЛOB):
+ 3217265238 1804854075  891529486 3788429659
+ 3538191932 4271339708 3504669347 3456448240
+ЗAПИCЬ 419900 ЗAHECEHA B БAЗY ДAHHЫX
+1 - COЗДATЬ OБЛACTЬ И БAЗY ДAHHЫX
+2 - ДOБABИTЬ/ЗAMEHИTЬ ПOЛЬЗOBATEЛЯ
+3 - ПOKAЗATЬ XEШ ПOЛЬЗOBATEЛЯ
+WНАТ= 
+4 - YДAЛИTЬ ПOЛЬЗOBATEЛЯ
+5 - CBEДEHИЯ OБ OБЛACTИ
+0 - KOHEЦ PAБOTЫ
+-2
+ШИФP ПOЛЬЗOBATEЛЯ (6 ЦИФP):
+-419901
+
+BBEДИTE ПAPOЛЬ:   
+ENTER A PASSWORD:   
+
+-parol-privat-2
+
+BBEДИTE ПAPOЛЬ CHOBA:   
+ENTER THE PASSWORD AGAIN:   
+WНАТ= 
+
+-parol-privat-2
+ПAPOЛИ COBПAДAЮT!
+PASSWORDS ARE MATCHED
+XEШ ПAPOЛЯ (8 CЛOB):
+ 1430340300 3616051719  335883487 2120326229
+ 3881724168  719715488 3516443722  467232650
+ЗAПИCЬ 419901 ЗAHECEHA B БAЗY ДAHHЫX
+1 - COЗДATЬ OБЛACTЬ И БAЗY ДAHHЫX
+2 - ДOБABИTЬ/ЗAMEHИTЬ ПOЛЬЗOBATEЛЯ
+3 - ПOKAЗATЬ XEШ ПOЛЬЗOBATEЛЯ
+4 - YДAЛИTЬ ПOЛЬЗOBATEЛЯ
+WНАТ= 
+5 - CBEДEHИЯ OБ OБЛACTИ
+0 - KOHEЦ PAБOTЫ
+-5
+OБЛACTЬ ПAPOЛИ:
+XOЗЯИH=    419999 ЗOH=         3
+ПAPOЛЬ=         1
+(1-ЧTEHИE, 2-ЗAПИCЬ, 3-ЧT+ЗП)
+1 - COЗДATЬ OБЛACTЬ И БAЗY ДAHHЫX
+2 - ДOБABИTЬ/ЗAMEHИTЬ ПOЛЬЗOBATEЛЯ
+3 - ПOKAЗATЬ XEШ ПOЛЬЗOBATEЛЯ
+4 - YДAЛИTЬ ПOЛЬЗOBATEЛЯ
+5 - CBEДEHИЯ OБ OБЛACTИ
+WНАТ= 
+0 - KOHEЦ PAБOTЫ
+-0
+*** KOHEЦ PAБOTЫ ***
+TOM 203 OCBOБOЖДEH (Э50 0116)
+ КОНЕЦ ЗАДАЧИ
+ 00411: 00 074 0000	*74
