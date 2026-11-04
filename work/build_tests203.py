@@ -15,9 +15,11 @@ Main' до конца Passver. Процедуры Э63 - work/t_procs.txt (им�
 
 ВАЖНО: строки длиннее 72 символов обрезаются мониторным вводом.
 """
+import os
 import sys
 
-WORK = '/home/z/my-project/besm-crypto/work'
+WORK = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                    'work')
 
 # Шапка по образцу golden_1task_h.b6: ЛУ40 = том 2348 с библиотекой
 # 02570 (паскаль-runtime + pasred). Лента 203 в паспорте не нужна:

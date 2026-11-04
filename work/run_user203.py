@@ -30,9 +30,11 @@ import subprocess
 import sys
 import time
 
-ROOT = '/home/z/my-project/besm-crypto'
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WORK = f'{ROOT}/work'
-DISPAK_DIR = '/home/z/my-project/dispak/build/dispak'
+DISPAK_DIR = (os.environ.get('DISPAK_DIR')
+              or os.path.dirname(shutil.which('dispak') or '')
+              or '/usr/local/share/besm6')
 STAGE = f'{WORK}/tstage'
 
 PASS1 = 'parol-privat-1'        # секретный пароль пользователя

@@ -24,9 +24,11 @@ import subprocess
 import sys
 import time
 
-ROOT = '/home/z/my-project/besm-crypto'
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WORK = f'{ROOT}/work'
-DISPAK_DIR = '/home/z/my-project/dispak/build/dispak'
+DISPAK_DIR = (os.environ.get('DISPAK_DIR')
+              or os.path.dirname(shutil.which('dispak') or '')
+              or '/usr/local/share/besm6')
 STAGE = f'{WORK}/tstage'
 
 PASS1 = 'parol-privat-1'        # пароль (хеш-пароль от него)
@@ -141,8 +143,12 @@ def run_deck(name, timeout=900):
 
 def dump_area_zone():
     """Дамп зоны 0030 (данные области ТЕСТ) из образа staged-тома."""
-    sys.path.insert(0, '/home/z/my-project/scripts')
-    from arfa_inspect import read_zone
+    try:
+        from arfa_inspect import read_zone
+    except ImportError:
+        print('  (нет модуля arfa_inspect в PYTHONPATH - '
+              'дамп зоны пропущен)')
+        return
     words = read_zone(f'{STAGE}/203', 0o30)
     print('  --- зона 0030 тома 203 (зона 0 области ТЕСТ), '
           'первые 20 слов ---')

@@ -16,9 +16,11 @@
 Запуск (том 2348 ищется по BESM6_PATH, нужен диск 2048 и системный 2053):
   BESM6_PATH=work:<системные диски> dispak -p work/bd203_save.b6
 """
+import os
 import sys
 
-WORK = '/home/z/my-project/besm-crypto/work'
+WORK = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                    'work')
 
 
 def main():

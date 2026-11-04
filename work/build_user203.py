@@ -28,9 +28,11 @@ work/u_{par,zap,pro}_main.txt.
 
 ВАЖНО: строки деки длиннее 72 символов обрезаются мониторным вводом.
 """
+import os
 import sys
 
-WORK = '/home/z/my-project/besm-crypto/work'
+WORK = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                    'work')
 
 # Шапка деки записи: том 2348 монтируется с разрешением записи (ЛУ 41),
 # библиотека 02570 - компилятор + runtime + GOSTLIB + МАРС-модули.

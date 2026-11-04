@@ -17,9 +17,11 @@
 ВАЖНО: строки Паскаль-исходника длиннее 72 символов обрезаются мониторным
 вводом (9 слов УПП) - все строки фрагментов должны быть не длиннее 72.
 """
+import os
 import sys
 
-WORK = '/home/z/my-project/besm-crypto/work'
+WORK = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                    'work')
 
 # Шапка деки: ЛУ 40 = системный диск 2048 со смещением 630 (код МАРСа,
 # читается Э70 из PASBDI - 'настройка на код МАРСа' по small.b6),
