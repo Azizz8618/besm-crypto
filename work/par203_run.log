@@ -1,0 +1,42 @@
+﻿                                                      04.11.26 М1
+
+  М О Н И Т О Р-8 0  (3.7)   25.09.84*       (  МС " Д У Б Н А " ИАЭ  )             ШИФР    419999000000
+*NАМЕ
+*NАМЕ
+           *САLL УЕSМЕМОRУ
+           *САLL УЕSМЕМОRУ
+           *РЕRSО:402570
+           *РЕRSО:402570
+ LIВRАRУ ОТ  04.11.26 М1
+           *NО LISТ
+           *NО LISТ
+           *САLL РАRОL
+           *САLL РАRОL
+
+---------------------------------------------
+ ПAP203: ЗAДAHИE XEШ-ПAPOЛЯ (ГOCT 34.11-94)  
+---------------------------------------------
+ПAPOЛЬ BBOДИTCЯ CEKPETHO, БEЗ ЭXA, ДBAЖДЫ
+ДЛЯ KOHTPOЛЯ. ДЛИHA - OT 8 ДO 80 CИMBOЛOB.
+
+BBEДИTE ПAPOЛЬ:   
+ENTER A PASSWORD:   
+
+-parol-privat-1
+
+BBEДИTE ПAPOЛЬ CHOBA:   
+ENTER THE PASSWORD AGAIN:   
+
+-parol-privat-1
+ПAPOЛИ COBПAДAЮT!
+PASSWORDS ARE MATCHED
+XEШ-ПAPOЛЬ (8 CЛOB ПO 32 PAЗPЯДA):
+ 3217265238 1804854075  891529486 3788429659
+ 3538191932 4271339708 3504669347 3456448240
+XPAHИTE ПAPOЛЬ B TAЙHE: XEШ-ПAPOЛЬ - ЭTO KЛЮЧ
+ШИФPOBAHИЯ ДЛЯ ЗAП203 И ПPO203, A XEШ MOЖHO
+ЗAHECTИ B БД ПAPOЛEЙ ПPOГPAMMOЙ BD203 (ПYHKT 2).
+           *ЕND FILЕ
+           *ЕND FILЕ
+ КОНЕЦ ЗАДАЧИ
+ 00411: 00 074 0000	*74

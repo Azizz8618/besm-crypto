@@ -1,0 +1,121 @@
+(* ===== ЗАП203: ЗАПИСЬ СООБЩЕНИЯ В ЗАШИФРОВАННЫЙ РАЗДЕЛ ===== *)
+begin
+  PASTEL[3]:=[48];
+  kl.l := 52053075B;
+  kl.r := 67040060B;
+  connected := false;
+  opened := false;
+  eqcheck := 1;
+  writeln;
+  writeln('---------------------------------------------');
+  writeln(' ЗАП203: ЗАПИСЬ В ЗАШИФРОВАННЫЙ РАЗДЕЛ АРФЫ  ');
+  writeln(' СПЕЦНОСИТЕЛЬ - ЛЕНТА 203, РАЗДЕЛ ТЕСТ/419999');
+  writeln('---------------------------------------------');
+  grabvolume(1003B);
+  if code <> 0 then
+    begin
+      writeln('ТОМ 203 НЕ ЗАХВАЧЕН (КОД=', code, ')');
+      writeln('ВОЗМОЖНО, ТОМ ЗАНЯТ ДРУГОЙ ЗАДАЧЕЙ');
+      goto 9
+    end;
+  writeln('ТОМ 203 ЗАХВАЧЕН МОНОПОЛЬНО (Э50 0157)');
+  areainfo;
+  if code = 0 then
+    begin
+      writeln('РАЗДЕЛ ТЕСТ УЖЕ ЕСТЬ: ХОЗЯИН=', answ.l,
+              ' ЗОН=', (answ.r mod 65536))
+    end
+  else
+    begin
+      writeln('РАЗДЕЛА НЕТ - СОЗДАНИЕ (2 ЗОНЫ)...');
+      mkarea(2);
+      if code <> 0 then
+        begin
+          writeln('ОШИБКА СОЗДАНИЯ РАЗДЕЛА (КОД=', code, ')');
+          eqcheck := 0;
+          goto 9
+        end;
+      writeln('ЗАДАЙТЕ ШИФР ДОСТУПА К РАЗДЕЛУ (1-4095):');
+      buf.buflen := 80;
+      buf.inplen := 0;
+      Pasred(buf);
+      cifv := 0;
+      for ii := 1 to buf.inplen do
+        begin
+          if (buf.a[ii] >= '0') and (buf.a[ii] <= '9') then
+            cifv := cifv*10 + (ord(buf.a[ii]) - ord('0'))
+        end;
+      if (cifv < 1) or (cifv > 4095) then
+        begin
+          writeln('ШИФР ДОЛЖЕН БЫТЬ ОТ 1 ДО 4095 - ПОВТОРИТЕ ЗАПУСК');
+          eqcheck := 0;
+          goto 9
+        end;
+      setpass(0, cifv);
+      writeln('ШИФР ДОСТУПА ', cifv, ' УСТАНОВЛЕН (КОД=', code, ')')
+    end;
+  writeln('---------------------------------------------');
+  writeln('КЛЮЧ ШИФРОВАНИЯ - ВАШ СЕКРЕТНЫЙ ПАРОЛЬ.');
+  writeln('ВВЕДИТЕ ЕГО (БЕЗ ЭХА):');
+  Passgen(pwd, pwdlen);
+  HashMessage(ref(pwd[1]), pwdlen, key);
+  InitGostCtx(ctx, key, s8, s7, s6, s5, s4, s3, s2, s1);
+  writeln('ВВЕДИТЕ СООБЩЕНИЕ ДЛЯ ЗАПИСИ (ДО 80 СИМВОЛОВ):');
+  buf.buflen := 80;
+  buf.inplen := 0;
+  Pasred(buf);
+  mlen := buf.inplen;
+  if mlen < 1 then
+    begin
+      writeln('ПУСТОЕ СООБЩЕНИЕ - ЗАПИСИ НЕТ');
+      eqcheck := 0;
+      goto 9
+    end;
+  for ii := 1 to mlen do
+    tmsg[ii] := ord(buf.a[ii]);
+  iv := CurrTime;
+  EncChars(ctx, iv, tmsg, mlen, tct);
+  writeln('СООБЩЕНИЕ ЗАШИФРОВАНО ГОСТ 28147-89 (ГАММИРОВАНИЕ).');
+  writeln('СИНХРОПОСЫЛКА:', iv:12, ' СЛОВ:', mlen + 1);
+  order;
+  if code <> 0 then
+    begin
+      writeln('ДОЗАКАЗ РАЗДЕЛА НЕ ПРОШЕЛ (КОД=', code, ')');
+      eqcheck := 0;
+      goto 9
+    end;
+  desc1 := 262144 + unitn*4096;
+  writeln('ЗАПИСЬ В ЗОНУ 0 РАЗДЕЛА (СПЕЦИФИКАЦИЯ=', desc1, ')');
+  reset(ctxt, desc1);
+  Rewrite(ctxt);
+  nwords := mlen + 1;
+  write(ctxt, nwords);
+  for ii := 1 to mlen + 1 do
+    write(ctxt, tct[ii]);
+  write(ctxt, nwords);
+  Reset(ctxt);
+  writeln('КОНТРОЛЬНОЕ ЧТЕНИЕ ОБРАТНО:');
+  nwords := 0;
+  while not Eof(ctxt) do
+    begin
+      nwords := nwords + 1;
+      Read(ctxt, tmp);
+      write(tmp:11);
+      if nwords mod 4 = 0 then writeln
+    end;
+  if nwords mod 4 <> 0 then writeln;
+  if nwords = mlen + 3 then
+    begin
+      writeln('ЗАПИСЬ ПРОВЕРЕНА: СЧИТАНО СЛОВ=', nwords, ' - ВЕРНО');
+      writeln('ГОТОВО: СООБЩЕНИЕ ЗАШИФРОВАНО ХЕШ-ПАРОЛЕМ');
+      writeln('И ЗАПИСАНО В РАЗДЕЛ. ДЛЯ ЧТЕНИЯ - ПРО203.')
+    end
+  else
+    begin
+      writeln('КОНТРОЛЬ ЗАПИСИ: СЧИТАНО ', nwords, ' СЛОВ - НЕВЕРНО');
+      eqcheck := 0
+    end;
+9:
+  releasevolume(1003B);
+  writeln('ТОМ 203 ОСВОБОЖДЕН (Э50 0116)')
+end

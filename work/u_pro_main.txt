@@ -1,0 +1,63 @@
+(* ===== ПРО203: ЧТЕНИЕ ИЗ РАЗДЕЛА И РАСШИФРОВКА ===== *)
+begin
+  PASTEL[3]:=[48];
+  kl.l := 52053075B;
+  kl.r := 67040060B;
+  connected := false;
+  opened := false;
+  writeln;
+  writeln('---------------------------------------------');
+  writeln(' ПРО203: ЧТЕНИЕ ИЗ ЗАШИФРОВАННОГО РАЗДЕЛА    ');
+  writeln(' СПЕЦНОСИТЕЛЬ - ЛЕНТА 203, РАЗДЕЛ ТЕСТ/419999');
+  writeln('---------------------------------------------');
+  grabvolume(1003B);
+  if code <> 0 then
+    begin
+      writeln('ТОМ 203 НЕ ЗАХВАЧЕН (КОД=', code, ')');
+      goto 9
+    end;
+  writeln('ТОМ 203 ЗАХВАЧЕН МОНОПОЛЬНО (Э50 0157)');
+  areainfo;
+  if code <> 0 then
+    begin
+      writeln('РАЗДЕЛ ТЕСТ НЕ НАЙДЕН - СНАЧАЛА ЗАПУСТИТЕ ЗАП203');
+      goto 9
+    end;
+  writeln('РАЗДЕЛ ТЕСТ: ХОЗЯИН=', answ.l, ' ЗОН=', (answ.r mod 65536));
+  order;
+  if code <> 0 then
+    begin
+      writeln('ДОЗАКАЗ РАЗДЕЛА НЕ ПРОШЕЛ (КОД=', code, ')');
+      goto 9
+    end;
+  desc1 := 262144 + unitn*4096;
+  writeln('ЧТЕНИЕ ЗОНЫ 0 РАЗДЕЛА (СПЕЦИФИКАЦИЯ=', desc1, ')');
+  reset(ctxt, desc1);
+  Read(ctxt, nwords);
+  if (nwords < 2) or (nwords > 81) then
+    begin
+      writeln('РАЗДЕЛ ПУСТ ИЛИ ПОВРЕЖДЕН (ЗАГОЛОВОК=', nwords, ')');
+      goto 9
+    end;
+  for ii := 1 to nwords do
+    Read(ctxt, tct[ii]);
+  Read(ctxt, tmp);
+  writeln('СЧИТАНО СЛОВ ШИФРТЕКСТА (С СИНХРОПОСЫЛКОЙ):', nwords);
+  writeln('---------------------------------------------');
+  writeln('ВВЕДИТЕ СЕКРЕТНЫЙ ПАРОЛЬ РАЗДЕЛА (БЕЗ ЭХА):');
+  Passver(pwd, pwdlen);
+  HashMessage(ref(pwd[1]), pwdlen, key);
+  InitGostCtx(ctx, key, s8, s7, s6, s5, s4, s3, s2, s1);
+  mlen := nwords - 1;
+  DecChars(ctx, tct, mlen, tdec);
+  writeln('---------------------------------------------');
+  writeln('РАСШИФРОВАННОЕ СООБЩЕНИЕ (', mlen, ' СИМВОЛОВ):');
+  for ii := 1 to mlen do
+    write(chr(tdec[ii]));
+  writeln;
+  writeln('КОНЕЦ СООБЩЕНИЯ. ЕСЛИ ТЕКСТ НЕЧИТАБЕЛЕН, ТО ПАРОЛЬ');
+  writeln('НЕВЕРЕН ИЛИ ДАННЫЕ В РАЗДЕЛЕ ПОВРЕЖДЕНЫ.');
+9:
+  releasevolume(1003B);
+  writeln('ТОМ 203 ОСВОБОЖДЕН (Э50 0116)')
+end

@@ -1,0 +1,55 @@
+﻿                                                      04.11.26 М1
+
+  М О Н И Т О Р-8 0  (3.7)   25.09.84*       (  МС " Д У Б Н А " ИАЭ  )             ШИФР    419999000000
+*NАМЕ
+*NАМЕ
+           *САLL УЕSМЕМОRУ
+           *САLL УЕSМЕМОRУ
+           *РЕRSО:402570
+           *РЕRSО:402570
+ LIВRАRУ ОТ  04.11.26 М1
+           *NО LISТ
+           *NО LISТ
+           *САLL ZАРIS
+           *САLL ZАРIS
+
+---------------------------------------------
+ ЗAП203: ЗAПИCЬ B ЗAШИФPOBAHHЫЙ PAЗДEЛ APФЫ  
+ CПEЦHOCИTEЛЬ - ЛEHTA 203, PAЗДEЛ TECT/419999
+---------------------------------------------
+TOM 203 ЗAXBAЧEH MOHOПOЛЬHO (Э50 0157)
+PAЗДEЛ TECT YЖE ECTЬ: XOЗЯИH=         0 ЗOH=         2
+---------------------------------------------
+KЛЮЧ ШИФPOBAHИЯ - BAШ CEKPETHЫЙ ПAPOЛЬ.
+BBEДИTE EГO (БEЗ ЭXA):
+
+BBEДИTE ПAPOЛЬ:   
+ENTER A PASSWORD:   
+
+-parol-privat-1
+
+BBEДИTE ПAPOЛЬ CHOBA:   
+ENTER THE PASSWORD AGAIN:   
+
+-parol-privat-1
+ПAPOЛИ COBПAДAЮT!
+PASSWORDS ARE MATCHED
+BBEДИTE COOБЩEHИE ДЛЯ ЗAПИCИ (ДO 80 CИMBOЛOB):
+-vtoraya-zapis-203
+COOБЩEHИE ЗAШИФPOBAHO ГOCT 28147-89 (ГAMMИPOBAHИE).
+CИHXPOПOCЫЛKA:     2627717 CЛOB:        18
+ЗAПИCЬ B ЗOHY 0 PAЗДEЛA (CПEЦИФИKAЦИЯ=    368640)
+KOHTPOЛЬHOE ЧTEHИE OБPATHO:
+         18    2627717 2343644852 3534720214
+ 3012813716 3526323273  534490807 3194383867
+ 2937990138 2882447607 3676336800 3202016441
+ 2572959845   95810980  409350585 2351182160
+ 1296948505  909659153 1657278256         18
+ЗAПИCЬ ПPOBEPEHA: CЧИTAHO CЛOB=        20 - BEPHO
+ГOTOBO: COOБЩEHИE ЗAШИФPOBAHO XEШ-ПAPOЛEM
+И ЗAПИCAHO B PAЗДEЛ. ДЛЯ ЧTEHИЯ - ПPO203.
+TOM 203 OCBOБOЖДEH (Э50 0116)
+           *ЕND FILЕ
+           *ЕND FILЕ
+ КОНЕЦ ЗАДАЧИ
+ 00411: 00 074 0000	*74
