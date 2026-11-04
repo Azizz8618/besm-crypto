@@ -68,6 +68,10 @@ def main():
     idx_data = max(i for i, l in enumerate(deck) if l.startswith('.data'))
     idx_exec = next(i for i, l in enumerate(deck)
                     if i > idx_data and l.startswith('*execute'))
+    # .data-секция кончается строкой 'end' в кол.0; между нею и *execute
+    # могли накопиться дубли '*no load list/*main start' от прежних сборок.
+    idx_end = next(i for i, l in enumerate(deck)
+                   if i > idx_data and l == 'end')
     idx_perso = next(i for i, l in enumerate(deck)
                      if l.startswith('*perso:'))
     assert idx_perso < idx_prog < idx_banner < idx_data < idx_exec
@@ -106,7 +110,7 @@ def main():
     out += mech                         # механизм golden
     out += procs                        # bd_procs.txt
     out += main_txt                     # bd_main.txt
-    out += deck[idx_data:idx_exec]      # .data ... end
+    out += deck[idx_data:idx_end + 1]  # .data ... end (без накопленных дублей)
     out += ['*     no load list',
             '*main start']              # вход через DTRAN start -> main
     out += deck[idx_exec:]              # *execute, *end file, ЕКОНЕЦ

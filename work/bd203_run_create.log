@@ -1,0 +1,119 @@
+﻿                                                      04.11.26 М1
+
+  М О Н И Т О Р-8 0  (3.7)   25.09.84*       (  МС " Д У Б Н А " ИАЭ  )             ШИФР    419999000000
+*NАМЕ
+*NАМЕ
+           *САLL УЕSМЕМОRУ
+           *САLL УЕSМЕМОRУ
+           *РЕRSО:412570
+           *РЕRSО:412570
+ LIВRАRУ ОТ  03.11.26 М1
+           *NО LISТ
+           *NО LISТ
+           *САLL SТАRТ
+           *САLL SТАRТ
+WНАТ= 
+
+---------------------------------------------
+БД XEШEЙ ПAPOЛEЙ - TOM APФЫ, ЛEHTA 203 (419999)
+---------------------------------------------
+MOHOПOЛЬHЫЙ ЗAXBAT TOMA 203 (Э50 0157): KOД=         0
+1 - COЗДATЬ OБЛACTЬ И БAЗY ДAHHЫX
+2 - ДOБABИTЬ/ЗAMEHИTЬ ПOЛЬЗOBATEЛЯ
+3 - ПOKAЗATЬ XEШ ПOЛЬЗOBATEЛЯ
+4 - YДAЛИTЬ ПOЛЬЗOBATEЛЯ
+5 - CBEДEHИЯ OБ OБЛACTИ
+0 - KOHEЦ PAБOTЫ
+-1
+WНАТ= 
+COЗДAHИE OБЛACTИ ПAPOЛИ: KOД=         0
+ШИФP ДOCTYПA K OБЛACTИ (1-4095):
+-3999
+ПAPOЛЬ OБЛACTИ       3999 YCTAHOBЛEH: KOД=         0
+ДOЗAKAЗ OБЛACTИ: KOД=         0 ЛY=        26
+KATAЛOГ MAPCA COЗДAH
+ 26117B ADR,    03 DATA BASE ERROR, 000010 MICRO RUN, NAME= HASHPWФAЙЛ ДAHHЫX HASHPW COЗДAH
+БAЗA ДAHHЫX OTKPЫTA
+БAЗA ДAHHЫX ГOTOBA K PAБOTE
+1 - COЗДATЬ OБЛACTЬ И БAЗY ДAHHЫX
+2 - ДOБABИTЬ/ЗAMEHИTЬ ПOЛЬЗOBATEЛЯ
+WНАТ= 
+3 - ПOKAЗATЬ XEШ ПOЛЬЗOBATEЛЯ
+4 - YДAЛИTЬ ПOЛЬЗOBATEЛЯ
+5 - CBEДEHИЯ OБ OБЛACTИ
+0 - KOHEЦ PAБOTЫ
+-2
+ШИФP ПOЛЬЗOBATEЛЯ (6 ЦИФP):
+-419900
+
+BBEДИTE ПAPOЛЬ:   
+ENTER A PASSWORD:   
+
+-parol-privat-1
+
+BBEДИTE ПAPOЛЬ CHOBA:   
+WНАТ= 
+ENTER THE PASSWORD AGAIN:   
+
+-parol-privat-1
+ПAPOЛИ COBПAДAЮT!
+PASSWORDS ARE MATCHED
+XEШ ПAPOЛЯ (8 CЛOB):
+ 3217265238 1804854075  891529486 3788429659
+ 3538191932 4271339708 3504669347 3456448240
+ЗAПИCЬ 419900 ЗAHECEHA B БAЗY ДAHHЫX
+1 - COЗДATЬ OБЛACTЬ И БAЗY ДAHHЫX
+2 - ДOБABИTЬ/ЗAMEHИTЬ ПOЛЬЗOBATEЛЯ
+3 - ПOKAЗATЬ XEШ ПOЛЬЗOBATEЛЯ
+WНАТ= 
+4 - YДAЛИTЬ ПOЛЬЗOBATEЛЯ
+5 - CBEДEHИЯ OБ OБЛACTИ
+0 - KOHEЦ PAБOTЫ
+-2
+ШИФP ПOЛЬЗOBATEЛЯ (6 ЦИФP):
+-419901
+
+BBEДИTE ПAPOЛЬ:   
+ENTER A PASSWORD:   
+
+-parol-privat-2
+
+BBEДИTE ПAPOЛЬ CHOBA:   
+ENTER THE PASSWORD AGAIN:   
+WНАТ= 
+
+-parol-privat-2
+ПAPOЛИ COBПAДAЮT!
+PASSWORDS ARE MATCHED
+XEШ ПAPOЛЯ (8 CЛOB):
+ 1430340300 3616051719  335883487 2120326229
+ 3881724168  719715488 3516443722  467232650
+ЗAПИCЬ 419901 ЗAHECEHA B БAЗY ДAHHЫX
+1 - COЗДATЬ OБЛACTЬ И БAЗY ДAHHЫX
+2 - ДOБABИTЬ/ЗAMEHИTЬ ПOЛЬЗOBATEЛЯ
+3 - ПOKAЗATЬ XEШ ПOЛЬЗOBATEЛЯ
+4 - YДAЛИTЬ ПOЛЬЗOBATEЛЯ
+WНАТ= 
+5 - CBEДEHИЯ OБ OБЛACTИ
+0 - KOHEЦ PAБOTЫ
+-5
+OБЛACTЬ ПAPOЛИ:
+XOЗЯИH=    419999 ЗOH=         3
+ПAPOЛЬ=         1
+(1-ЧTEHИE, 2-ЗAПИCЬ, 3-ЧT+ЗП)
+1 - COЗДATЬ OБЛACTЬ И БAЗY ДAHHЫX
+2 - ДOБABИTЬ/ЗAMEHИTЬ ПOЛЬЗOBATEЛЯ
+3 - ПOKAЗATЬ XEШ ПOЛЬЗOBATEЛЯ
+4 - YДAЛИTЬ ПOЛЬЗOBATEЛЯ
+5 - CBEДEHИЯ OБ OБЛACTИ
+WНАТ= 
+0 - KOHEЦ PAБOTЫ
+-0
+*** KOHEЦ PAБOTЫ ***
+TOM 203 OCBOБOЖДEH (Э50 0116)
+           *ЕND FILЕ
+           *ЕND FILЕ
+ КОНЕЦ ЗАДАЧИ
+ 00411: 00 074 0000	*74
+
+=== ПРИГЛАШЕНИЙ ОТВЕЧЕНО: 12/12 ===

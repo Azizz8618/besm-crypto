@@ -1,0 +1,74 @@
+﻿                                                      04.11.26 М1
+
+  М О Н И Т О Р-8 0  (3.7)   25.09.84*       (  МС " Д У Б Н А " ИАЭ  )             ШИФР    419999000000
+*NАМЕ
+*NАМЕ
+           *САLL УЕSМЕМОRУ
+           *САLL УЕSМЕМОRУ
+           *РЕRSО:412570
+           *РЕRSО:412570
+ LIВRАRУ ОТ  03.11.26 М1
+           *NО LISТ
+           *NО LISТ
+           *САLL SТАRТ
+           *САLL SТАRТ
+WНАТ= 
+
+---------------------------------------------
+БД XEШEЙ ПAPOЛEЙ - TOM APФЫ, ЛEHTA 203 (419999)
+---------------------------------------------
+MOHOПOЛЬHЫЙ ЗAXBAT TOMA 203 (Э50 0157): KOД=         0
+1 - COЗДATЬ OБЛACTЬ И БAЗY ДAHHЫX
+2 - ДOБABИTЬ/ЗAMEHИTЬ ПOЛЬЗOBATEЛЯ
+3 - ПOKAЗATЬ XEШ ПOЛЬЗOBATEЛЯ
+4 - YДAЛИTЬ ПOЛЬЗOBATEЛЯ
+5 - CBEДEHИЯ OБ OБЛACTИ
+0 - KOHEЦ PAБOTЫ
+-5
+WНАТ= 
+OБЛACTЬ ПAPOЛИ:
+XOЗЯИH=         0 ЗOH=         3
+ПAPOЛЬ=         0
+(1-ЧTEHИE, 2-ЗAПИCЬ, 3-ЧT+ЗП)
+1 - COЗДATЬ OБЛACTЬ И БAЗY ДAHHЫX
+2 - ДOБABИTЬ/ЗAMEHИTЬ ПOЛЬЗOBATEЛЯ
+3 - ПOKAЗATЬ XEШ ПOЛЬЗOBATEЛЯ
+4 - YДAЛИTЬ ПOЛЬЗOBATEЛЯ
+5 - CBEДEHИЯ OБ OБЛACTИ
+0 - KOHEЦ PAБOTЫ
+-3
+ДOЗAKAЗ OБЛACTИ: KOД=         0 ЛY=        26
+WНАТ= 
+БAЗA ДAHHЫX OTKPЫTA
+ШИФP ПOЛЬЗOBATEЛЯ (6 ЦИФP):
+-419900
+XEШ ПAPOЛЯ ПOЛЬЗOBATEЛЯ 419900:
+ 3217265238 1804854075  891529486 3788429659
+ 3538191932 4271339708 3504669347 3456448240
+1 - COЗДATЬ OБЛACTЬ И БAЗY ДAHHЫX
+2 - ДOБABИTЬ/ЗAMEHИTЬ ПOЛЬЗOBATEЛЯ
+3 - ПOKAЗATЬ XEШ ПOЛЬЗOBATEЛЯ
+4 - YДAЛИTЬ ПOЛЬЗOBATEЛЯ
+5 - CBEДEHИЯ OБ OБЛACTИ
+0 - KOHEЦ PAБOTЫ
+-3
+WНАТ= 
+ШИФP ПOЛЬЗOBATEЛЯ (6 ЦИФP):
+-419901
+XEШ ПAPOЛЯ ПOЛЬЗOBATEЛЯ 419901:
+ 1430340300 3616051719  335883487 2120326229
+ 3881724168  719715488 3516443722  467232650
+1 - COЗДATЬ OБЛACTЬ И БAЗY ДAHHЫX
+2 - ДOБABИTЬ/ЗAMEHИTЬ ПOЛЬЗOBATEЛЯ
+3 - ПOKAЗATЬ XEШ ПOЛЬЗOBATEЛЯ
+4 - YДAЛИTЬ ПOЛЬЗOBATEЛЯ
+5 - CBEДEHИЯ OБ OБЛACTИ
+0 - KOHEЦ PAБOTЫ
+-0
+*** KOHEЦ PAБOTЫ ***
+WНАТ= 
+TOM 203 OCBOБOЖДEH (Э50 0116)
+           *ЕND FILЕ
+           *ЕND FILЕ
+ КОНЕЦ ЗАДАЧИ
+ 00411: 00 074 0000	*74
