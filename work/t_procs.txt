@@ -1,0 +1,188 @@
+(* ================================================================ *)
+(* ПРОЦЕДУРЫ ТЕСТОВ РАЗДЕЛА АРФЫ НА ЛЕНТЕ 203                       *)
+(* Область 'ТЕСТ/419999' (2 зоны): зона 0 - шифртекст сообщения,   *)
+(* зашифрованного ГОСТ 28147-89 гаммированием со счётчиком;         *)
+(* ключ шифрования - хеш-пароль (ГОСТ 34.11-94, 8 слов).            *)
+(* Экстракоды: Э63 'КЛЮЧАР' (01 создание, 03 пароль, 05            *)
+(* подтверждение, 07 сведения, 12 дозаказ на лог.номер),            *)
+(* Э50 0157/0116 - монопольный захват/освобождение тома.            *)
+(* ================================================================ *)
+(* --- Э63 'КЛЮЧАР': базовый вызов без параметра на РМР --- *)
+procedure e63;
+begin
+  pa := ref(isw[1]);
+  besm(400006B);
+  tmpw := kl;
+  besm(30630000B);
+  answ := ;
+  besm(420016B);
+  tmpw := ;
+  code := tmpw.r
+end;
+(* --- Э63 'КЛЮЧАР': вызов с параметром на РМР --- *)
+procedure e63p;
+begin
+  pa := ref(prmw);
+  besm(400005B);
+  tmpw := prmw;
+  besm(24120000B);
+  pa := ref(isw[1]);
+  besm(400006B);
+  tmpw := kl;
+  besm(30630000B);
+  answ := ;
+  besm(420016B);
+  tmpw := ;
+  code := tmpw.r
+end;
+(* --- имя области по-новому (УПП): 'ТЕСТ/419999', 0-терминатор --- *)
+(* Т=62(8)=50 Е=45(8)=37 С=61(8)=49 Т=50 /=12 4=4 1=1 9=9 (ГОСТ) *)
+procedure setname;
+begin
+  isw[2].l := 50*65536 + 37*256 + 49;    (* Т Е С *)
+  isw[2].r := 50*65536 + 12*256 + 4;     (* Т / 4 *)
+  isw[3].l := 1*65536 + 9*256 + 9;       (* 1 9 9 *)
+  isw[3].r := 9*65536 + 9*256            (* 9 9 0 *)
+end;
+(* --- Э63 01: создать область ТЕСТ/419999 (ln зон) --- *)
+procedure mkarea(ln: integer);
+begin
+  setname;
+  isw[1].l := 1000000B;      (* тип 01 - создание области *)
+  isw[1].r := 8;             (* имя по-новому (10В) *)
+  prmw.l := 0;               (* вид 0, права 0 *)
+  prmw.r := ln;              (* длина в зонах *)
+  e63p
+end;
+(* --- Э63 03: установить пароль записи области --- *)
+procedure setpass(old, nw: integer);
+begin
+  setname;
+  isw[1].l := 3000000B + old;      (* тип 03 + старый пароль *)
+  isw[1].r := nw*4096 + 8;         (* новый пароль + имя *)
+  e63
+end;
+(* --- Э63 05: подтвердить пароль области --- *)
+procedure verpass(pw: integer);
+begin
+  setname;
+  isw[1].l := 5000000B + pw;       (* тип 05 + пароль *)
+  isw[1].r := 8;
+  e63
+end;
+(* --- Э63 07: сведения об области (хозяин/зоны на СМ) --- *)
+procedure areainfo;
+begin
+  setname;
+  isw[1].l := 7000000B;            (* тип 07 *)
+  isw[1].r := 8;
+  e63
+end;
+(* --- Э63 12: дозаказ области на свободный лог.номер --- *)
+procedure order;
+begin
+  setname;
+  isw[1].l := 12000000B;           (* тип 12 - дозаказ *)
+  isw[1].r := 8;                   (* имя по-новому, запись+чтение *)
+  prmw.l := 77600000B;             (* шкала ЛУ: 030-038 *)
+  prmw.r := 0;
+  e63p;
+  unitn := answ.r                  (* лог.номер - с СМ *)
+end;
+(* --- печать хеша/массива слов (8 слов по 4 в строке) --- *)
+procedure prhash(var h: Array [1..8] of UInt32);
+begin
+  for ii := 1 to 8 do begin
+    write(h[ii]:11);
+    if ii = 4 then writeln
+  end;
+  writeln
+end;
+(* --- печать шифртекста по 4 слова в строке --- *)
+procedure prwords(var a: Array[1..101] of Integer; n: Integer);
+var t: Integer;
+begin
+  for t := 1 to n do begin
+    write(a[t]:11);
+    if t mod 4 = 0 then writeln
+  end;
+  if n mod 4 <> 0 then writeln
+end;
+(* --- Э50 0157: монопольный захват спецносителя (том в ДДК) --- *)
+procedure grabvolume(vbcd: integer);
+begin
+  prmw.l := 0;
+  prmw.r := vbcd;
+  tmpw := prmw;
+  besm(500157B);
+  tmpw := ;
+  code := tmpw.r
+end;
+(* --- Э50 0116: освобождение спецносителя --- *)
+procedure releasevolume(vbcd: integer);
+begin
+  prmw.l := 0;
+  prmw.r := vbcd;
+  tmpw := prmw;
+  besm(500116B)
+end;
+(* --- гаммирование сообщения (ГОСТ 28147-89, счётчик): --- *)
+(* коды символов -> слова шифртекста; dst[1] = синхропосылка IV, *)
+(* далее по слову на символ (по образцу EncryptToArray golden)    *)
+procedure EncChars(
+  ctx: TypeGostCtx;
+  iv: Integer;
+  var src: Array[1..100] of Integer;
+  len: Integer;
+  var dst: Array[1..101] of Integer);
+var
+  counter, gamma: Array[1..2] of UInt32;
+  t: Integer;
+begin
+  dst[1] := iv;
+  counter[1] := iv;
+  counter[2] := 0;
+  t := 0;
+  while t < len do
+  begin
+    counter[2] := counter[2] + 1;
+    gamma[1] := counter[1];
+    gamma[2] := counter[2];
+    EncryptBlock(ctx, gamma);
+    t := t + 1;
+    dst[t+1] := Xor(src[t], gamma[1]);
+    if t < len then
+    begin
+      t := t + 1;
+      dst[t+1] := Xor(src[t], gamma[2])
+    end
+  end
+end;
+(* --- обратное гаммирование: [1]=IV, далее шифртекст -> коды --- *)
+procedure DecChars(
+  ctx: TypeGostCtx;
+  var arr: Array[1..101] of Integer;
+  len: Integer;
+  var res: Array[1..100] of Integer);
+var
+  counter, gamma: Array[1..2] of UInt32;
+  t: Integer;
+begin
+  counter[1] := arr[1];
+  counter[2] := 0;
+  t := 0;
+  while t < len do
+  begin
+    counter[2] := counter[2] + 1;
+    gamma[1] := counter[1];
+    gamma[2] := counter[2];
+    EncryptBlock(ctx, gamma);
+    t := t + 1;
+    res[t] := Xor(arr[t+1], gamma[1]);
+    if t < len then
+    begin
+      t := t + 1;
+      res[t] := Xor(arr[t+1], gamma[2])
+    end
+  end
+end;

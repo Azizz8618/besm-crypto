@@ -1,0 +1,132 @@
+(* ===== ГЛАВНЫЙ: ТЕСТ 2 - СОЗДАНИЕ РАЗДЕЛА АРФЫ И ЗАПИСЬ ===== *)
+begin
+  PASTEL[3]:=[48];
+  kl.l := 52053075B;
+  kl.r := 67040060B;
+  connected := false;
+  opened := false;
+  eqcheck := 1;
+  writeln;
+  writeln('---------------------------------------------');
+  writeln('ТЕСТ 2: СОЗДАНИЕ ЗАШИФРОВАННОГО РАЗДЕЛА АРФЫ');
+  writeln('        ЛЕНТА 203, ОБЛАСТЬ ТЕСТ/419999');
+  writeln('---------------------------------------------');
+  grabvolume(1003B);
+  writeln('МОНОПОЛЬНЫЙ ЗАХВАТ ТОМА 203 (Э50 0157): КОД=', code);
+  if code <> 0 then
+    begin
+      writeln('ОШИБКА!!! ТОМ 203 НЕ ЗАХВАЧЕН!!!');
+      goto 9
+    end;
+  areainfo;
+  if code = 0 then
+    begin
+      writeln('ОБЛАСТЬ ТЕСТ УЖЕ СОЗДАНА:');
+      writeln('ХОЗЯИН=', answ.l, ' ЗОН=', (answ.r mod 65536))
+    end
+  else
+    begin
+      mkarea(2);
+      writeln('СОЗДАНИЕ ОБЛАСТИ ТЕСТ (2 ЗОНЫ): КОД=', code);
+      if code <> 0 then
+        begin
+          writeln('ОШИБКА СОЗДАНИЯ ОБЛАСТИ!!!');
+          eqcheck := 0;
+          goto 9
+        end;
+      writeln('ШИФР ДОСТУПА К ОБЛАСТИ (1-4095):');
+      buf.buflen := 80;
+      buf.inplen := 0;
+      Pasred(buf);
+      cifv := 0;
+      for ii := 1 to buf.inplen do
+        begin
+          if (buf.a[ii] >= '0') and (buf.a[ii] <= '9') then
+            cifv := cifv*10 + (ord(buf.a[ii]) - ord('0'))
+        end;
+      if (cifv < 1) or (cifv > 4095) then
+        begin
+          writeln('ШИФР ДОЛЖЕН БЫТЬ В ДИАПАЗОНЕ 1-4095!!!');
+          eqcheck := 0;
+          goto 9
+        end;
+      setpass(0, cifv);
+      writeln('ПАРОЛЬ ОБЛАСТИ ', cifv, ' УСТАНОВЛЕН: КОД=', code)
+    end;
+  writeln('---------------------------------------------');
+  writeln('СОЗДАНИЕ ХЕШ-ПАРОЛЯ (КЛЮЧА ШИФРОВАНИЯ):');
+  Passgen(pwd, pwdlen);
+  HashMessage(ref(pwd[1]), pwdlen, key);
+  writeln('ХЕШ-ПАРОЛЬ (8 СЛОВ):');
+  prhash(key);
+  InitGostCtx(ctx, key, s8, s7, s6, s5, s4, s3, s2, s1);
+  writeln('КЛЮЧ ГОСТ 28147-89 = ХЕШ-ПАРОЛЬ, РЕЖИМ ГАММИРОВАНИЯ');
+  writeln('---------------------------------------------');
+  writeln('КОНТРОЛЬНОЕ СООБЩЕНИЕ (ЗАПОМНИТЕ ЕГО):');
+  buf.buflen := 80;
+  buf.inplen := 0;
+  Pasred(buf);
+  mlen := buf.inplen;
+  if mlen < 1 then
+    begin
+      writeln('ПУСТОЕ СООБЩЕНИЕ!!!');
+      eqcheck := 0;
+      goto 9
+    end;
+  for ii := 1 to mlen do
+    tmsg[ii] := ord(buf.a[ii]);
+  iv := CurrTime;
+  EncChars(ctx, iv, tmsg, mlen, tct);
+  writeln('СИНХРОПОСЫЛКА IV:', iv:12);
+  writeln('ШИФРТЕКСТ (', mlen, ' СЛОВ):');
+  prwords(tct, mlen + 1);
+  writeln('---------------------------------------------');
+  order;
+  writeln('ДОЗАКАЗ ОБЛАСТИ (Э63 12): КОД=', code, ' ЛУ=', unitn);
+  if code <> 0 then
+    begin
+      eqcheck := 0;
+      goto 9
+    end;
+  desc1 := 262144 + unitn*4096;
+  writeln('ЗАПИСЬ В ЗОНУ 0 ОБЛАСТИ (СПЕЦИФИКАЦИЯ=', desc1, ')');
+  reset(ctxt, desc1);
+  Rewrite(ctxt);
+  nwords := mlen + 1;
+  write(ctxt, nwords);
+  for ii := 1 to mlen + 1 do
+    write(ctxt, tct[ii]);
+  write(ctxt, nwords);
+  Reset(ctxt);
+  writeln('КОНТРОЛЬНОЕ ЧТЕНИЕ ЗАПИСАННОГО:');
+  nwords := 0;
+  while not Eof(ctxt) do
+    begin
+      nwords := nwords + 1;
+      Read(ctxt, tmp);
+      write(tmp:11);
+      if nwords mod 4 = 0 then writeln
+    end;
+  if nwords mod 4 <> 0 then writeln;
+  writeln('СЧИТАНО СЛОВ:', nwords);
+  if nwords = mlen + 3 then
+    writeln('КОНТРОЛЬ ЗАПИСИ: ВЕРНО')
+  else
+    begin
+      writeln('КОНТРОЛЬ ЗАПИСИ: ЧИСЛО СЛОВ НЕВЕРНО!!!');
+      eqcheck := 0
+    end;
+  if eqcheck = 1 then
+    begin
+      writeln('*** TEST 2 PASSED ***');
+      writeln('*** ТЕСТ 2 ПРОЙДЕН: РАЗДЕЛ СОЗДАН, ЗАПИСЬ ЕСТЬ ***')
+    end
+  else
+    begin
+      writeln('*** TEST 2 FAILED ***');
+      writeln('*** ТЕСТ 2 ПРОВАЛЕН ***')
+    end;
+9:
+  releasevolume(1003B);
+  writeln('ТОМ 203 ОСВОБОЖДЕН (Э50 0116)')
+end

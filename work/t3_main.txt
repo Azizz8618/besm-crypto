@@ -1,0 +1,100 @@
+(* ===== ГЛАВНЫЙ: ТЕСТ 3 - ЧТЕНИЕ ИЗ РАЗДЕЛА И РАСШИФРОВКА ===== *)
+begin
+  PASTEL[3]:=[48];
+  kl.l := 52053075B;
+  kl.r := 67040060B;
+  connected := false;
+  opened := false;
+  eqcheck := 1;
+  writeln;
+  writeln('---------------------------------------------');
+  writeln('ТЕСТ 3: ЧТЕНИЕ ИЗ РАЗДЕЛА АРФЫ И РАСШИФРОВКА');
+  writeln('        ХЕШ-ПАРОЛЕМ, ЛЕНТА 203, ОБЛАСТЬ ТЕСТ');
+  writeln('---------------------------------------------');
+  grabvolume(1003B);
+  writeln('МОНОПОЛЬНЫЙ ЗАХВАТ ТОМА 203 (Э50 0157): КОД=', code);
+  if code <> 0 then
+    begin
+      writeln('ОШИБКА!!! ТОМ 203 НЕ ЗАХВАЧЕН!!!');
+      eqcheck := 0;
+      goto 9
+    end;
+  areainfo;
+  if code <> 0 then
+    begin
+      writeln('ОБЛАСТЬ ТЕСТ НЕ НАЙДЕНА - СНАЧАЛА ВЫПОЛНИТЕ ТЕСТ 2!');
+      eqcheck := 0;
+      goto 9
+    end;
+  writeln('ОБЛАСТЬ ТЕСТ: ХОЗЯИН=', answ.l, ' ЗОН=', (answ.r mod 65536));
+  order;
+  writeln('ДОЗАКАЗ ОБЛАСТИ (Э63 12): КОД=', code, ' ЛУ=', unitn);
+  if code <> 0 then
+    begin
+      eqcheck := 0;
+      goto 9
+    end;
+  desc1 := 262144 + unitn*4096;
+  writeln('ЧТЕНИЕ ЗОНЫ 0 ОБЛАСТИ (СПЕЦИФИКАЦИЯ=', desc1, ')');
+  reset(ctxt, desc1);
+  Read(ctxt, nwords);
+  writeln('ЗАГОЛОВОК: СЛОВ ШИФРТЕКСТА (С IV):', nwords);
+  if (nwords < 2) or (nwords > 81) then
+    begin
+      writeln('НЕВЕРНЫЙ ЗАГОЛОВОК ФАЙЛА!!!');
+      eqcheck := 0;
+      goto 9
+    end;
+  for ii := 1 to nwords do
+    Read(ctxt, tct[ii]);
+  Read(ctxt, tmp);
+  writeln('КОНТРОЛЬНОЕ СЛОВО В КОНЦЕ:', tmp:11);
+  writeln('ШИФРТЕКСТ, СЧИТАННЫЙ ИЗ РАЗДЕЛА:');
+  prwords(tct, nwords);
+  writeln('---------------------------------------------');
+  writeln('ВВЕДИТЕ ПАРОЛЬ (ХЕШ-ПАРОЛЬ ДОЛЖЕН СОВПАСТЬ):');
+  Passver(pwd, pwdlen);
+  HashMessage(ref(pwd[1]), pwdlen, key);
+  writeln('ХЕШ-ПАРОЛЬ (8 СЛОВ):');
+  prhash(key);
+  InitGostCtx(ctx, key, s8, s7, s6, s5, s4, s3, s2, s1);
+  writeln('КЛЮЧ ГОСТ 28147-89 = ХЕШ-ПАРОЛЬ');
+  writeln('---------------------------------------------');
+  writeln('ВВЕДИТЕ КОНТРОЛЬНОЕ СООБЩЕНИЕ ИЗ ТЕСТА 2:');
+  buf.buflen := 80;
+  buf.inplen := 0;
+  Pasred(buf);
+  mlen2 := buf.inplen;
+  for ii := 1 to mlen2 do
+    tmsg[ii] := ord(buf.a[ii]);
+  mlen := nwords - 1;
+  DecChars(ctx, tct, mlen, tdec);
+  write('РАСШИФРОВАННОЕ СООБЩЕНИЕ (', mlen, ' СИМВОЛОВ): ');
+  for ii := 1 to mlen do
+    write(chr(tdec[ii]));
+  writeln;
+  if mlen <> mlen2 then
+    begin
+      writeln('ДЛИНЫ СООБЩЕНИЙ НЕ СОВПАДАЮТ!!!');
+      eqcheck := 0
+    end
+  else
+    begin
+      for ii := 1 to mlen do
+        if tdec[ii] <> tmsg[ii] then
+          eqcheck := 0
+    end;
+  if eqcheck = 1 then
+    begin
+      writeln('*** TEST 3 PASSED ***');
+      writeln('*** ТЕСТ 3 ПРОЙДЕН: РАСШИФРОВКА ПО ХЕШ-ПАРОЛЮ ВЕРНА ***')
+    end
+  else
+    begin
+      writeln('*** TEST 3 FAILED ***');
+      writeln('*** ТЕСТ 3 ПРОВАЛЕН: НЕВЕРНЫЙ ПАРОЛЬ ИЛИ ДАННЫЕ ***')
+    end;
+9:
+  releasevolume(1003B);
+  writeln('ТОМ 203 ОСВОБОЖДЕН (Э50 0116)')
+end

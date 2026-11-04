@@ -1,0 +1,51 @@
+(* ============ ГЛАВНЫЙ: ТЕСТ 1 - ЦИКЛ ХЕШ-ПАРОЛЯ ============ *)
+begin
+  PASTEL[3]:=[48];
+  connected := false;
+  opened := false;
+  eqcheck := 1;
+  writeln;
+  writeln('---------------------------------------------');
+  writeln('ТЕСТ 1: ЦИКЛ СОЗДАНИЯ ХЕШ-ПАРОЛЯ (ГОСТ 34.11-94)');
+  writeln('---------------------------------------------');
+  writeln('ВВЕДИТЕ ПАРОЛЬ ДВАЖДЫ (СЕКРЕТНЫЙ ВВОД):');
+  Passgen(pwd, pwdlen);
+  HashMessage(ref(pwd[1]), pwdlen, key);
+  writeln('ХЕШ-ПАРОЛЬ (8 СЛОВ ПО 32 РАЗРЯДА):');
+  prhash(key);
+  writeln('ПОДТВЕРЖДЕНИЕ: ВВЕДИТЕ ТОТ ЖЕ ПАРОЛЬ ЕЩЕ РАЗ:');
+  Passver(pwd, pwdlen);
+  HashMessage(ref(pwd[1]), pwdlen, key1);
+  writeln('ХЕШ ПОВТОРНОГО ВВОДА:');
+  prhash(key1);
+  if key1 = key then
+    writeln('ПОВТОРНЫЙ ХЕШ СОВПАДАЕТ С ПЕРВЫМ - ВЕРНО')
+  else
+    begin
+      writeln('ПОВТОРНЫЙ ХЕШ ОТЛИЧАЕТСЯ - ОШИБКА!!!');
+      eqcheck := 0
+    end;
+  writeln('НЕГАТИВНАЯ ПРОВЕРКА: ВВЕДИТЕ ДРУГОЙ ПАРОЛЬ:');
+  Passver(pwd, pwdlen);
+  HashMessage(ref(pwd[1]), pwdlen, key2);
+  writeln('ХЕШ ДРУГОГО ПАРОЛЯ:');
+  prhash(key2);
+  if key2 = key then
+    begin
+      writeln('ХЕШЫ СОВПАЛИ - ОШИБКА!!!');
+      eqcheck := 0
+    end
+  else
+    writeln('ХЕШЫ РАЗЛИЧАЮТСЯ - ВЕРНО');
+  writeln('ДЛИНА ПАРОЛЯ:', pwdlen, ' СИМВОЛОВ');
+  if eqcheck = 1 then
+    begin
+      writeln('*** TEST 1 PASSED ***');
+      writeln('*** ТЕСТ 1 ПРОЙДЕН: ЦИКЛ ХЕШ-ПАРОЛЯ РАБОТАЕТ ***')
+    end
+  else
+    begin
+      writeln('*** TEST 1 FAILED ***');
+      writeln('*** ТЕСТ 1 ПРОВАЛЕН ***')
+    end
+end
